@@ -35,6 +35,8 @@
 @c list of copyright years.
 @set COPYRIGHT_YEARS            2019
 
+@set CHICKEN_VERSION            5.0.0
+
 @c ------------------------------------------------------------
 
 @set PackageAutoconfPrefix              MMUX_CHICKEN_CHECKS
@@ -63,7 +65,8 @@ implementing features to organise test suites and it is derived from @ansrfi{78}
 testing''.  CHICKEN is a Scheme-to-C compiler supporting the language features as defined in the
 ``Revised^5 Report on Scheme''.
 
-The library supports @posix{} platforms.
+The library supports @posix{} platforms.  This package has been tested with CHICKEN version
+@value{CHICKEN_VERSION}.
 
 This package is distributed under the terms of the @gnu{} Lesser General Public License (@lgpl{}).
 
