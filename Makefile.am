@@ -158,7 +158,7 @@ MMUX_CHECK_PROGS	= \
 CLEANFILES	+= $(MMUX_CHECK_PROGS) $(MMUX_CHECK_OBJECTS)
 TESTS		=  $(MMUX_CHECK_PROGS)
 
-MMUX_CHECK_DEPS	+= $(MMUX_CHECKS_LIBRARY) $(MMUX_CHECKS_IMPORT_LIBS) tests/$(am__dirstamp)
+MMUX_CHECK_DEPS	+= $(MMUX_CHECKS_LIBRARY) $(MMUX_CHECKS_IMPORT_LIBS)
 
 ## --------------------------------------------------------------------
 
