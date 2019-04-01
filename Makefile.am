@@ -21,25 +21,25 @@ doc_mmux_chicken_checks_TEXINFOS = \
 # All the source files of the extension library.
 #
 MMUX_CHECKS_MODULES		= \
-	lib/mmux-checks-core.scm		\
-	lib/mmux-checks-compat.scm		\
-	lib/mmux-checks-version.scm		\
+	lib/mmux.checks.core.scm		\
+	lib/mmux.checks.compat.scm		\
+	lib/mmux.checks.version.scm		\
 	lib/mmux.checks.scm
 
 # All the object files that must be linked in the extension library.
 #
 MMUX_CHECKS_OBJECTS		= \
-	lib/mmux-checks-core.$(OBJEXT)		\
-	lib/mmux-checks-compat.$(OBJEXT)	\
-	lib/mmux-checks-version.$(OBJEXT)	\
+	lib/mmux.checks.core.$(OBJEXT)		\
+	lib/mmux.checks.compat.$(OBJEXT)	\
+	lib/mmux.checks.version.$(OBJEXT)	\
 	lib/mmux.checks.$(OBJEXT)
 
 # All the source files of all the modules' import libraries.
 #
 MMUX_CHECKS_IMPORT_SOURCES	= \
-	lib/mmux-checks-core.import.scm		\
-	lib/mmux-checks-compat.import.scm	\
-	lib/mmux-checks-version.import.scm	\
+	lib/mmux.checks.core.import.scm		\
+	lib/mmux.checks.compat.import.scm	\
+	lib/mmux.checks.version.import.scm	\
 	lib/mmux.checks.import.scm
 
 # This does not include:
@@ -47,9 +47,9 @@ MMUX_CHECKS_IMPORT_SOURCES	= \
 #   lib/mmux-checks.import.$(MMUX_SOEXT)
 #
 MMUX_CHECKS_IMPORT_LIBS	= \
-	lib/mmux-checks-core.import.$(MMUX_SOEXT)	\
-	lib/mmux-checks-compat.import.$(MMUX_SOEXT)	\
-	lib/mmux-checks-version.import.$(MMUX_SOEXT)
+	lib/mmux.checks.core.import.$(MMUX_SOEXT)	\
+	lib/mmux.checks.compat.import.$(MMUX_SOEXT)	\
+	lib/mmux.checks.version.import.$(MMUX_SOEXT)
 
 # This is the extension library file pathname.
 #
@@ -86,35 +86,35 @@ checks_SCRIPTS	= $(MMUX_CHECKS_LIBRARY) $(MMUX_CHECKS_IMPORT_LIBRARY)
 
 ## --------------------------------------------------------------------
 
-lib/mmux-checks-version.$(OBJEXT): lib/mmux-checks-version.scm $(MMUX_OBJECTS_DEPS)
+lib/mmux.checks.version.$(OBJEXT): lib/mmux.checks.version.scm $(MMUX_OBJECTS_DEPS)
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) $(@) $(<) -prologue lib/config.scm
-	@$(MV) mmux-checks-version.import.scm lib/mmux-checks-version.import.scm
+	@$(MV) mmux.checks.version.import.scm lib/mmux.checks.version.import.scm
 
-lib/mmux-checks-version.import.scm: lib/mmux-checks-version.$(OBJEXT)
+lib/mmux.checks.version.import.scm: lib/mmux.checks.version.$(OBJEXT)
 
-lib/mmux-checks-version.import.$(MMUX_SOEXT): lib/mmux-checks-version.import.scm
+lib/mmux.checks.version.import.$(MMUX_SOEXT): lib/mmux.checks.version.import.scm
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_LIBRARY) $(@) $(<)
 
 ## --------------------------------------------------------------------
 
-lib/mmux-checks-compat.$(OBJEXT): lib/mmux-checks-compat.scm $(MMUX_OBJECTS_DEPS)
+lib/mmux.checks.compat.$(OBJEXT): lib/mmux.checks.compat.scm $(MMUX_OBJECTS_DEPS)
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) $(@) $(<)
-	@$(MV) mmux-checks-compat.import.scm lib/mmux-checks-compat.import.scm
+	@$(MV) mmux.checks.compat.import.scm lib/mmux.checks.compat.import.scm
 
-lib/mmux-checks-compat.import.scm: lib/mmux-checks-compat.$(OBJEXT)
+lib/mmux.checks.compat.import.scm: lib/mmux.checks.compat.$(OBJEXT)
 
-lib/mmux-checks-compat.import.$(MMUX_SOEXT): lib/mmux-checks-compat.import.scm
+lib/mmux.checks.compat.import.$(MMUX_SOEXT): lib/mmux.checks.compat.import.scm
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_LIBRARY) $(@) $(<)
 
 ## --------------------------------------------------------------------
 
-lib/mmux-checks-core.$(OBJEXT): lib/mmux-checks-core.scm lib/mmux-checks-compat.import.$(MMUX_SOEXT) $(MMUX_OBJECTS_DEPS)
+lib/mmux.checks.core.$(OBJEXT): lib/mmux.checks.core.scm lib/mmux.checks.compat.import.$(MMUX_SOEXT) $(MMUX_OBJECTS_DEPS)
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) $(@) $(<)
-	@$(MV) mmux-checks-core.import.scm lib/mmux-checks-core.import.scm
+	@$(MV) mmux.checks.core.import.scm lib/mmux.checks.core.import.scm
 
-lib/mmux-checks-core.import.scm: lib/mmux-checks-core.$(OBJEXT)
+lib/mmux.checks.core.import.scm: lib/mmux.checks.core.$(OBJEXT)
 
-lib/mmux-checks-core.import.$(MMUX_SOEXT): lib/mmux-checks-core.import.scm
+lib/mmux.checks.core.import.$(MMUX_SOEXT): lib/mmux.checks.core.import.scm
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_LIBRARY) $(@) $(<)
 
 ## --------------------------------------------------------------------

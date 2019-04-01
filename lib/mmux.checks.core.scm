@@ -23,11 +23,11 @@
 ;;;WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
-(declare (unit mmux-checks-core)
-	 (uses mmux-checks-compat)
-	 (emit-import-library mmux-checks-core))
+(declare (unit mmux.checks.core)
+	 (uses mmux.checks.compat)
+	 (emit-import-library mmux.checks.core))
 
-(module (mmux-checks-core)
+(module (mmux.checks.core)
     (
      ;; bindings from the SRFI
      (syntax: check checks::eval-this-test? checks::proc checks::mode)
@@ -71,7 +71,7 @@
 	  (rename (only (chicken process-context)
 			get-environment-variable)
 		  (get-environment-variable	getenv))
-	  (mmux-checks-compat))
+	  (mmux.checks.compat))
 
 
 ;;; utilities

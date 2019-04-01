@@ -26,13 +26,13 @@
 
 ;;;; units and module header
 
-(declare (unit mmux-checks-version)
-	 (emit-import-library mmux-checks-version))
+(declare (unit mmux.checks.version)
+	 (emit-import-library mmux.checks.version))
 
-(module (mmux-checks-version)
+(module (mmux.checks.version)
     *
   (import (scheme)
-    (prefix mmux-chicken-checks-config config::))
+    (prefix mmux.checks.config config::))
 
 
 ;;;; version functions

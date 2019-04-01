@@ -31,15 +31,15 @@
 ;;;; units and module header
 
 (declare (unit mmux.checks)
-	 (uses mmux-checks-core)
-	 (uses mmux-checks-version)
+	 (uses mmux.checks.core)
+	 (uses mmux.checks.version)
 	 (emit-import-library mmux.checks))
 
 (module (mmux.checks)
     ()
   (import (only (chicken module) reexport))
-  (reexport (mmux-checks-core)
-	    (mmux-checks-version)
+  (reexport (mmux.checks.core)
+	    (mmux.checks.version)
 	    (rename (only (chicken base)
 			  make-parameter
 			  parameterize)

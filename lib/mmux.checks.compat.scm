@@ -27,10 +27,10 @@
 
 ;;;; units and module header
 
-(declare (unit mmux-checks-compat)
-	 (emit-import-library mmux-checks-compat))
+(declare (unit mmux.checks.compat)
+	 (emit-import-library mmux.checks.compat))
 
-(module (mmux-checks-compat)
+(module (mmux.checks.compat)
     (call-with-string-output-port error assertion-violation)
   (import (scheme)
 	  (chicken module)
