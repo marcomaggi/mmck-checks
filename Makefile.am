@@ -295,19 +295,22 @@ MMUX_CHECK_ENV			+= \
 ## --------------------------------------------------------------------
 
 EXTRA_DIST		+= \
-	tests/test-version.scm
-
-MMUX_CHECK_PROGS	= \
-	tests/test-version
+	tests/test-version.scm		\
+	tests/test-demo.scm
 
 MMUX_CHECK_OBJECTS	= \
-	tests/test-version.$(OBJEXT)
+	tests/test-version.$(OBJEXT)	\
+	tests/test-demo.$(OBJEXT)
+
+MMUX_CHECK_PROGS	= \
+	tests/test-version		\
+	tests/test-demo
 
 CLEANFILES		+= $(MMUX_CHECK_PROGS) $(MMUX_CHECK_OBJECTS)
 TESTS			= $(MMUX_CHECK_PROGS)
 AM_TESTS_ENVIRONMENT	= $(MMUX_CHECK_ENV)
 
-MMUX_CHECKS_CHECK_DEPS= $(MMUX_CHECKS_LIBRARY) $(MMUX_CHECKS_IMPORT_LIBS) tests/$(am__dirstamp)
+MMUX_CHECK_DEPS= $(MMUX_CHECKS_LIBRARY) $(MMUX_CHECKS_IMPORT_LIBS) tests/$(am__dirstamp)
 
 ## --------------------------------------------------------------------
 
@@ -317,10 +320,18 @@ tests/$(am__dirstamp):
 
 ## --------------------------------------------------------------------
 
-tests/test-version.$(OBJEXT): tests/test-version.scm $(MMUX_CHECKS_CHECK_DEPS)
+tests/test-version.$(OBJEXT): tests/test-version.scm $(MMUX_CHECK_DEPS)
 	$(MMUX_CHECK_ENV) $(CSC_COMPILE_OBJECT_STATIC) $(@) $(<)
 
 tests/test-version: tests/test-version.$(OBJEXT)
+	$(MMUX_CHECK_ENV) $(CSC_LINK_PROGRAM) $(@) $(<)
+
+## --------------------------------------------------------------------
+
+tests/test-demo.$(OBJEXT): tests/test-demo.scm $(MMUX_CHECK_DEPS)
+	$(MMUX_CHECK_ENV) $(CSC_COMPILE_OBJECT_STATIC) $(@) $(<)
+
+tests/test-demo: tests/test-demo.$(OBJEXT)
 	$(MMUX_CHECK_ENV) $(CSC_LINK_PROGRAM) $(@) $(<)
 
 
