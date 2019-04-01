@@ -30,23 +30,23 @@
 (module (mmux-checks-core)
     (
      ;; bindings from the SRFI
-     check
+     (syntax: check checks::eval-this-test? checks::proc checks::mode)
      check-report
      check-set-mode!
      check-reset!
      check-passed?
 
      ;; result handling
-     with-result add-result get-result
+     (syntax: with-result) add-result get-result
 
      ;; more macros
      false-if-exception check-for-true check-for-false
-     check-for-assertion-violation
-     check-for-procedure-argument-violation
-     check-for-procedure-signature-argument-violation
-     check-for-procedure-signature-return-value-violation
-     check-for-procedure-arguments-consistency-violation
-     check-for-expression-return-value-violation
+     (syntax: check-for-assertion-violation)
+     (syntax: check-for-procedure-argument-violation)
+     (syntax: check-for-procedure-signature-argument-violation)
+     (syntax: check-for-procedure-signature-return-value-violation)
+     (syntax: check-for-procedure-arguments-consistency-violation)
+     (syntax: check-for-expression-return-value-violation)
 
      ;; selecting tests
      check-test-name
@@ -139,7 +139,7 @@
 
 ;;; mode handling
 
-(define check:mode
+(define checks::mode
   ;;This  MAKE-PARAMETER call  will pass  its first  argument through  the validation
   ;;function in its second parameter.
   (make-parameter 'report
@@ -149,10 +149,10 @@
 	((summary)       1)
 	((report-failed) 10)
 	((report)        100)
-	(else (error 'check:mode "unrecognized mode for CHECK:MODE" v))))))
+	(else (error 'checks::mode "unrecognized mode for CHECKS::MODE" v))))))
 
 (define (check-set-mode! mode)
-  (check:mode mode))
+  (checks::mode mode))
 
 
 ;;; state handling
@@ -201,14 +201,14 @@
   (flush-checks-port))
 
 (define (check-report)
-  (when (>= (check:mode) 1)
+  (when (>= (checks::mode) 1)
     (check-newline)
     (check-display "; *** checks *** : ")
     (check-display check:correct)
     (check-display " correct, ")
     (check-display (length check:failed))
     (check-display " failed.")
-    (when (> (check:mode) 1)
+    (when (> (checks::mode) 1)
       (if (pair? check:failed)
 	  (let* ((ell	(reverse check:failed))
 		 (w	(car ell))
@@ -247,8 +247,8 @@
 
 ;;; simple checks
 
-(define (check:proc expression thunk equal expected-result)
-  (case (check:mode)
+(define (checks::proc expression thunk equal expected-result)
+  (case (checks::mode)
     ((0)
      (values))
     ((1)
@@ -287,8 +287,8 @@
     ((_ ?expr => ?expected)
      (srfi:check ?expr (=> equal?) ?expected))
     ((_ ?expr (=> ?equal) ?expected)
-     (when (>= (check:mode) 1)
-       (check:proc (quote ?expr) (lambda () ?expr) ?equal ?expected)))))
+     (when (>= (checks::mode) 1)
+       (checks::proc (quote ?expr) (lambda () ?expr) ?equal ?expected)))))
 
 
 ;;;; handling results
@@ -443,7 +443,7 @@
 (define selected-test
   (getenv "CHECK_TEST_NAME"))
 
-(define (eval-this-test?)
+(define (checks::eval-this-test?)
   (or (not selected-test)
       (zero? (string-length selected-test))
       (let ((name (check-test-name)))
@@ -459,7 +459,7 @@
      (check ?expr (=> equal?) ?expected-result))
 
     ((_ ?expr (=> ?equal) ?expected-result)
-     (when (eval-this-test?)
+     (when (checks::eval-this-test?)
        (srfi:check ?expr (=> ?equal) ?expected-result)))
 
     ((_ ?name ?expr => ?expected-result)
@@ -467,7 +467,7 @@
 
     ((_ ?name ?expr (=> ?equal) ?expected-result)
      (parameterize ((check-test-name ?name))
-       (when (eval-this-test?)
+       (when (checks::eval-this-test?)
 	 (srfi:check ?expr (=> ?equal) ?expected-result))))
 
     ;;; multiple values
@@ -476,7 +476,7 @@
      (check ?expr (=> equal?) ?expected-result0 ?expected-result1 ?expected-result ...))
 
     ((_ ?expr (=> ?equal) ?expected-result0 ?expected-result1 ?expected-result ...)
-     (when (eval-this-test?)
+     (when (checks::eval-this-test?)
        (srfi:check (values->list ?expr) (=> ?equal) (list ?expected-result0 ?expected-result1 ?expected-result ...))))
 
     ((_ ?name ?expr => ?expected-result0 ?expected-result1 ?expected-result ...)
@@ -484,7 +484,7 @@
 
     ((_ ?name ?expr (=> ?equal) ?expected-result0 ?expected-result1 ?expected-result ...)
      (parameterize ((check-test-name ?name))
-       (when (eval-this-test?)
+       (when (checks::eval-this-test?)
 	 (srfi:check (values->list ?expr) (=> ?equal) (list ?expected-result0 ?expected-result1 ?expected-result ...)))))
     ))
 
@@ -494,7 +494,7 @@
 ;;      (check ?expr (=> equal?) ?expected-result))
 
 ;;     ((_ ?expr (=> ?equal) ?expected-result)
-;;      (when (eval-this-test?)
+;;      (when (checks::eval-this-test?)
 ;;        (srfi:check ?expr (=> ?equal) ?expected-result)))
 
 ;;     ((_ ?name ?expr => ?expected-result)
@@ -502,7 +502,7 @@
 
 ;;     ((_ ?name ?expr (=> ?equal) ?expected-result)
 ;;      (parameterize ((check-test-name ?name))
-;;        (when (eval-this-test?)
+;;        (when (checks::eval-this-test?)
 ;; 	 (srfi:check ?expr (=> ?equal) ?expected-result))))))
 
 
