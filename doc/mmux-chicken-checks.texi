@@ -444,7 +444,7 @@ When @var{name} is given: it is the name of this test, @ref{select, Selecting te
 @chapter Selecting tests to be run
 
 
-As usage example, let's assume that the system environment variable @env{CHECKS_TEST_NAME} is set to
+As usage example, let's assume that the system environment variable @env{CHECKS_NAME} is set to
 @code{yellow}:
 
 @example
@@ -488,7 +488,7 @@ As usage example, let's assume that the system environment variable @env{CHECKS_
 @end example
 
 
-@defvr {Environment Variable} CHECKS_TEST_NAME
+@defvr {Environment Variable} CHECKS_NAME
 The system environment variable used to select tests in a test suite file.  The value of the
 variable must be the name, or the prefix of the name, or the suffix of the name, of one or more
 tests.

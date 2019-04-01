@@ -187,9 +187,10 @@
 (define (check:report-correct cases)
   (check-display "correct")
   (if (not (= cases 1))
-      (begin (check-display " (")
-	     (check-display cases)
-	     (check-display " cases checked)")))
+      (begin
+	(check-display " (")
+	(check-display cases)
+	(check-display " cases checked)")))
   (check-newline))
 
 (define (check:report-failed expected-result)
@@ -441,7 +442,7 @@
 	value))))
 
 (define selected-test
-  (getenv "CHECK_TEST_NAME"))
+  (getenv "CHECKS_NAME"))
 
 (define (checks::eval-this-test?)
   (or (not selected-test)

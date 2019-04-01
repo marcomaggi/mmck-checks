@@ -34,19 +34,32 @@
 	  (chicken base)
 	  (mmux checks))
 
+(check-set-mode! 'report-failed)
+(check-display "*** testing demo\n")
+
 
 ;;;; stuff
 
 (parameterize ((check-test-name		'alpha))
 
   (check
-   (+ 1 2)
-   => 3)
+      (+ 1 2)
+    => 3)
+
+  (values))
+
+(parameterize ((check-test-name		'beta))
+
+  (check
+      (+ 1 2)
+    => 3)
 
   (values))
 
 
 ;;;; done
+
+(check-report)
 
 #| end of module |# )
 
