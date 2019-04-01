@@ -10,20 +10,13 @@ CLEANFILES		=
 
 OBJEXT			= o
 
-# This is the extension of the shared object libraries.
+# File  name  extensions  for  shared objects  and  shared  libraries.
+# Notice that, on every platform,  CHICKEN uses ".so" as extension for
+# shared  libraries;  it  does  not  care  about  ".dll"  or  ".dyld".
+# Because.
 #
-if ON_LINUX
+OBJEXT			= o
 MMUX_SOEXT		= so
-endif
-if ON_BSD
-MMUX_SOEXT		= so
-endif
-if ON_CYGWIN
-MMUX_SOEXT		= dll
-endif
-if ON_DARWIN
-MMUX_SOEXT		= dylib
-endif
 
 MV			= mv
 
@@ -96,7 +89,7 @@ CSC_COMPILE_OBJECT_STATIC	= $(CHICKEN_COMPILER) $(AM_CHICKEN_FLAGS_OBJECT_STATIC
 # Compile object files into a shared  library.  We use this for import
 # libraries.
 #
-CSC_COMPILE_LIBRARY		= $(CHICKEN_COMPILER) -dynamic $(AM_CHICKEN_LIBFLAGS) -o
+CSC_COMPILE_LIBRARY		= $(CHICKEN_COMPILER) $(AM_CHICKEN_LIBFLAGS) -o
 
 # Link object files into a shared library.
 #
@@ -286,7 +279,7 @@ MMUX_CHECK_ENV			= \
 # both at expand-time and at run-time.
 #
 MMUX_CHECK_ENV			+= \
-	CHECKS_QUIET=yes;				export CHECKS_QUIET;		\
+	CHECKS_QUIET=no;				export CHECKS_QUIET;		\
 	CHECKS_TEST_NAME=$(name);			export CHECKS_TEST_NAME;	\
 	MMUX_SOURCE_PATH=$(MMUX_CHECK_SOURCE_PATH);	export MMUX_SOURCE_PATH;	\
 	MMUX_SRCDIR=$(srcdir)/tests;			export MMUX_SRCDIR;		\
@@ -358,7 +351,7 @@ MMUX_INSTALLCHECK_ENV			= \
 # both at expand-time and at run-time.
 #
 MMUX_INSTALLCHECK_ENV			+= \
-	CHECKS_QUIET=yes;				export CHECKS_QUIET;		\
+	CHECKS_QUIET=no;				export CHECKS_QUIET;		\
 	CHECKS_TEST_NAME=$(name);			export CHECKS_TEST_NAME;	\
 	MMUX_SOURCE_PATH=$(MMUX_CHECK_SOURCE_PATH);	export MMUX_SOURCE_PATH;	\
 	MMUX_SRCDIR=$(srcdir)/tests;			export MMUX_SRCDIR;		\
