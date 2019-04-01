@@ -137,8 +137,8 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 @menu
 * overview::                    Overview of the package.
 * version::                     Version functions.
-* select::                      Selecting tests to be run.
 * eval::                        Evaluating code.
+* select::                      Selecting tests to be run.
 * result::                      Handling multiple results.
 * output::                      Special output functions.
 
@@ -241,62 +241,6 @@ Return an integer representing the library interface current age.
 @end defun
 
 @c page
-@node select
-@chapter Selecting tests to be run
-
-
-As usage example, let's assume that the system environment variable @env{CHECKS_TEST_NAME} is set to
-@code{yellow}:
-
-@example
-(parameterize ((check-test-name 'yellow))
-
-  ;; this is evaluated
-  (check
-      (do-something)
-    => 123)
-
-  ;; this is evaluated, too
-  (check
-      (do-some-other-thing)
-    => 456))
-
-(parameterize ((check-test-name 'blue))
-
-  ;; this is NOT evaluated
-  (check
-      (do-something)
-    => #t)
-
-  ;; this is NOT evaluated
-  (check
-      (do-some-other-thing)
-    => #f))
-
-;; this is evaluated
-(check "yellow-one"
-    (do-something)
-  => 123)
-
-;; this is NOT evaluated
-(check 'red
-    (do-something)
-  => #t)
-@end example
-
-
-@defvr {Environment Variable} CHECKS_TEST_NAME
-The system environment variable used to select tests in a test suite file.  The value of the
-variable must be the name, or the prefix of the name, or the suffix of the name, of one or more
-tests.
-@end defvr
-
-
-@deffn Parameter check-test-name
-Holds the name of the current test or tests.  Must be set to @false{}, a string or a symbol.
-@end deffn
-
-@c page
 @node eval
 @chapter Evaluating code
 
@@ -396,103 +340,163 @@ When @var{name} is given: it is the name of this test, @ref{select, Selecting te
 @end deffn
 
 
-@deffn Syntax check-for-assertion-violation @meta{body} => @meta{expected-who/irritants}
-@deffnx {Auxiliary Syntax} =>
-Expand to:
+@c @deffn Syntax check-for-assertion-violation @meta{body} => @meta{expected-who/irritants}
+@c @deffnx {Auxiliary Syntax} =>
+@c Expand to:
 
-@lisp
-(check
-    (guard (E ((assertion-violation? E)
-               (list (condition-who E)
-                     (condition-irritants E))
-              (else E))
-      ?body)
-  => ?expected-who/irritants))
-@end lisp
-@end deffn
-
-
-@deffn Syntax check-for-procedure-argument-violation @meta{body} => @meta{expected-who/irritants}
-@deffnx {Auxiliary Syntax} =>
-Expand to:
-
-@lisp
-(check
-    (guard (E ((procedure-argument-violation? E)
-               (list (condition-who E)
-                     (condition-irritants E))
-              (else E))
-      ?body)
-  => ?expected-who/irritants))
-@end lisp
-@end deffn
+@c @lisp
+@c (check
+@c     (guard (E ((assertion-violation? E)
+@c                (list (condition-who E)
+@c                      (condition-irritants E))
+@c               (else E))
+@c       ?body)
+@c   => ?expected-who/irritants))
+@c @end lisp
+@c @end deffn
 
 
-@deffn Syntax check-for-procedure-signature-argument-violation @meta{body} => @meta{expected-who/irritants}
-@deffnx {Auxiliary Syntax} =>
-Expand to:
+@c @deffn Syntax check-for-procedure-argument-violation @meta{body} => @meta{expected-who/irritants}
+@c @deffnx {Auxiliary Syntax} =>
+@c Expand to:
 
-@lisp
-(check
-    (guard (E ((procedure-argument-violation? E)
-               (list (condition-who E)
-                     (procedure-argument-violation.one-based-argument-index E)
-                     (procedure-argument-violation.failed-expression E)
-                     (procedure-argument-violation.offending-value E)))
-              (else E))
-      @meta{body})
-  => @meta{expected-who/irritants})
-@end lisp
-@end deffn
+@c @lisp
+@c (check
+@c     (guard (E ((procedure-argument-violation? E)
+@c                (list (condition-who E)
+@c                      (condition-irritants E))
+@c               (else E))
+@c       ?body)
+@c   => ?expected-who/irritants))
+@c @end lisp
+@c @end deffn
 
 
-@deffn Syntax check-for-procedure-signature-return-value-violation @meta{body} => @meta{expected-who/irritants}
-@deffnx {Auxiliary Syntax} =>
-Expand to:
+@c @deffn Syntax check-for-procedure-signature-argument-violation @meta{body} => @meta{expected-who/irritants}
+@c @deffnx {Auxiliary Syntax} =>
+@c Expand to:
+
+@c @lisp
+@c (check
+@c     (guard (E ((procedure-argument-violation? E)
+@c                (list (condition-who E)
+@c                      (procedure-argument-violation.one-based-argument-index E)
+@c                      (procedure-argument-violation.failed-expression E)
+@c                      (procedure-argument-violation.offending-value E)))
+@c               (else E))
+@c       @meta{body})
+@c   => @meta{expected-who/irritants})
+@c @end lisp
+@c @end deffn
+
+
+@c @deffn Syntax check-for-procedure-signature-return-value-violation @meta{body} => @meta{expected-who/irritants}
+@c @deffnx {Auxiliary Syntax} =>
+@c Expand to:
+
+@c @example
+@c (check
+@c     (guard (E ((procedure-signature-return-value-violation? E)
+@c                (list (condition-who E)
+@c                      (procedure-signature-return-value-violation.one-based-return-value-index E)
+@c                      (procedure-signature-return-value-violation.failed-expression E)
+@c                      (procedure-signature-return-value-violation.offending-value E)))
+@c               (else E))
+@c       @meta{body})
+@c   => @meta{expected-who/irritants})
+@c @end example
+@c @end deffn
+
+
+@c @deffn Syntax check-for-procedure-arguments-consistency-violation @meta{body} => @meta{expected-who/irritants}
+@c @deffnx {Auxiliary Syntax} =>
+@c Expand to:
+
+@c @example
+@c (check
+@c     (guard (E ((procedure-arguments-consistency-violation? E)
+@c                (list (condition-who E)
+@c                      (condition-irritants E)))
+@c               (else E))
+@c       @meta{body})
+@c   => @meta{expected-who/irritants})
+@c @end example
+@c @end deffn
+
+
+@c @deffn Syntax check-for-expression-return-value-violation @meta{body} => @meta{expected-who/irritants}
+@c @deffnx {Auxiliary Syntax} =>
+@c Expand to:
+
+@c @example
+@c (check
+@c     (guard (E ((expression-return-value-violation? E)
+@c                (list (condition-who E)
+@c                      (condition-irritants E)))
+@c               (else E))
+@c       @meta{body})
+@c   => @meta{expected-who/irritants})
+@c @end example
+@c @end deffn
+
+@c page
+@node select
+@chapter Selecting tests to be run
+
+
+As usage example, let's assume that the system environment variable @env{CHECKS_TEST_NAME} is set to
+@code{yellow}:
 
 @example
-(check
-    (guard (E ((procedure-signature-return-value-violation? E)
-               (list (condition-who E)
-                     (procedure-signature-return-value-violation.one-based-return-value-index E)
-                     (procedure-signature-return-value-violation.failed-expression E)
-                     (procedure-signature-return-value-violation.offending-value E)))
-              (else E))
-      @meta{body})
-  => @meta{expected-who/irritants})
+(parameterize ((check-test-name 'yellow))
+
+  ;; this is evaluated
+  (check
+      (do-something)
+    => 123)
+
+  ;; this is evaluated, too
+  (check
+      (do-some-other-thing)
+    => 456)
+
+  #| end of PARAMETERIZE |#)
+
+(parameterize ((check-test-name 'blue))
+
+  ;; this is NOT evaluated
+  (check
+      (do-something)
+    => #t)
+
+  ;; this is NOT evaluated
+  (check
+      (do-some-other-thing)
+    => #f)
+
+  #| end of PARAMETERIZE |#)
+
+;; this is evaluated
+(check "yellow-one"
+    (do-something)
+  => 123)
+
+;; this is NOT evaluated
+(check 'red
+    (do-something)
+  => #t)
 @end example
-@end deffn
 
 
-@deffn Syntax check-for-procedure-arguments-consistency-violation @meta{body} => @meta{expected-who/irritants}
-@deffnx {Auxiliary Syntax} =>
-Expand to:
-
-@example
-(check
-    (guard (E ((procedure-arguments-consistency-violation? E)
-               (list (condition-who E)
-                     (condition-irritants E)))
-              (else E))
-      @meta{body})
-  => @meta{expected-who/irritants})
-@end example
-@end deffn
+@defvr {Environment Variable} CHECKS_TEST_NAME
+The system environment variable used to select tests in a test suite file.  The value of the
+variable must be the name, or the prefix of the name, or the suffix of the name, of one or more
+tests.
+@end defvr
 
 
-@deffn Syntax check-for-expression-return-value-violation @meta{body} => @meta{expected-who/irritants}
-@deffnx {Auxiliary Syntax} =>
-Expand to:
-
-@example
-(check
-    (guard (E ((expression-return-value-violation? E)
-               (list (condition-who E)
-                     (condition-irritants E)))
-              (else E))
-      @meta{body})
-  => @meta{expected-who/irritants})
-@end example
+@deffn Parameter check-test-name
+Holds the name of the current test or tests.  Must be set to @false{}, a string or a symbol.
 @end deffn
 
 @c page
@@ -500,25 +504,30 @@ Expand to:
 @chapter Handling multiple results
 
 
-@deffn Syntax with-result @var{form0} @var{form} ...
-Evaluate all the @var{form}s, as in @syntax{internal-body}, in a dynamic
-environment in which an implicit result variable is defined.  The
-implicit variable is handled as a list.
+@deffn Syntax with-result @var{form0} @var{form} @dots{}
+Evaluate all the @var{form}s, as in:
 
-Return a list whose first value is the return value of the last
-@var{form} and whose second value is the value of the implicit variable.
+@example
+(let () @var{form0} @var{form} @dots{})
+@end example
+
+@noindent
+in a dynamic environment in which an implicit result variable is defined.  The implicit variable is
+handled as a list.
+
+Return a list whose first value is the return value of the last @var{form} and whose second value is
+the value of the implicit variable.
 @end deffn
 
 
 @defun add-result @var{obj}
-Append @var{obj} to the list in the implicit variable defined by
-@func{with-result}, return @var{obj} itself.
+Append @var{obj} to the list in the implicit variable defined by @func{with-result}, return
+@var{obj} itself.
 @end defun
 
 
 @defun get-result
-Return the current value of the implicit variable defined by
-@func{with-result}.
+Return the current value of the implicit variable defined by @func{with-result}.
 @end defun
 
 @c page
@@ -527,10 +536,9 @@ Return the current value of the implicit variable defined by
 
 
 @defvr Constant check-quiet-tests?
-@cindex @env{VICARE_CHECK_QUIET}
-Set to a boolean value.  It is initialised from the system environment
-variable @env{VICARE_CHECK_QUIET}: when the variable is set to
-@samp{yes} or a non--zero fixnum, the boolean is @true{}; otherwise it
+@cindex @env{CHECKS_QUIET}
+Set to a boolean value.  It is initialised from the system environment variable @env{CHECKS_QUIET}:
+when the variable is set to @samp{yes} or a non--zero fixnum, the boolean is @true{}; otherwise it
 is @false{}.
 @end defvr
 
