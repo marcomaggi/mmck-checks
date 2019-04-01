@@ -254,7 +254,7 @@ installcheck-local: $(TESTS)
 repl:
 	$(MMUX_CHECK_ENV) $(CHICKEN_INTERPRETER)
 
-test tests:
+test tests: $(TESTS)
 	for f in $(builddir)/tests/test-*$(file)*.exe; do $(MMUX_CHECK_ENV) $$f; done
 
 ### end of file

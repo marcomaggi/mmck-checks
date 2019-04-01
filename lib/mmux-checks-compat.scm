@@ -1,12 +1,13 @@
 ;;; -*- coding: utf-8-unix  -*-
 ;;;
 ;;;Part of: MMUX CHICKEN Checks
-;;;Contents: compatibility with R6RS
+;;;Contents: compatibility module
 ;;;Date: Mar 31, 2019
 ;;;
 ;;;Abstract
 ;;;
-;;;	This unit defines compatibility functions and syntaxes with R6RS.
+;;;	This unit defines compatibility functions and syntaxes for code running on an
+;;;	augmented R6RS language.
 ;;;
 ;;;Copyright (C) 2019 Marco Maggi <marco.maggi-ipsu@poste.it>
 ;;;
@@ -26,10 +27,10 @@
 
 ;;;; units and module header
 
-(declare (unit mmux-checks-rsix)
-	 (emit-import-library mmux-checks-rsix))
+(declare (unit mmux-checks-compat)
+	 (emit-import-library mmux-checks-compat))
 
-(module (mmux-checks-rsix)
+(module (mmux-checks-compat)
     (call-with-string-output-port error assertion-violation)
   (import (scheme)
 	  (chicken module)
@@ -38,11 +39,6 @@
 		receive
 		open-output-string
 		get-output-string))
-  (reexport (rename (only (scheme)
-			  + - zero?)
-		    (+		fxadd1)
-		    (-		fxsub1)
-		    (zero?	fxzero?)))
   (reexport (rename (only (chicken base)
 			  fixnum?
 			  when unless

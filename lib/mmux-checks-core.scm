@@ -24,7 +24,7 @@
 
 
 (declare (unit mmux-checks-core)
-	 (uses mmux-checks-rsix)
+	 (uses mmux-checks-compat)
 	 (emit-import-library mmux-checks-core))
 
 (module (mmux-checks-core)
@@ -71,7 +71,7 @@
 	  (rename (only (chicken process-context)
 			get-environment-variable)
 		  (get-environment-variable	getenv))
-	  (mmux-checks-rsix))
+	  (mmux-checks-compat))
 
 
 ;;; utilities
@@ -80,7 +80,7 @@
   (let ((S (getenv "CHECKS_QUIET")))
     (and S
 	 (or (and (fixnum? S)
-		  (not (fxzero? S)))
+		  (not (zero? S)))
 	     (string=? S "yes")))))
 
 (define (check-display thing)
@@ -165,7 +165,7 @@
   (set! check:failed '()))
 
 (define (check:add-correct!)
-  (set! check:correct (fxadd1 check:correct)))
+  (set! check:correct (+ 1 check:correct)))
 
 (define (check:add-failed! expression actual-result expected-result)
   (set! check:failed

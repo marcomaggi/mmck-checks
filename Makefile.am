@@ -22,7 +22,7 @@ doc_mmux_chicken_checks_TEXINFOS = \
 #
 MMUX_CHECKS_MODULES		= \
 	lib/mmux-checks-core.scm		\
-	lib/mmux-checks-rsix.scm		\
+	lib/mmux-checks-compat.scm		\
 	lib/mmux-checks-version.scm		\
 	lib/mmux.checks.scm
 
@@ -30,7 +30,7 @@ MMUX_CHECKS_MODULES		= \
 #
 MMUX_CHECKS_OBJECTS		= \
 	lib/mmux-checks-core.$(OBJEXT)		\
-	lib/mmux-checks-rsix.$(OBJEXT)		\
+	lib/mmux-checks-compat.$(OBJEXT)	\
 	lib/mmux-checks-version.$(OBJEXT)	\
 	lib/mmux.checks.$(OBJEXT)
 
@@ -38,7 +38,7 @@ MMUX_CHECKS_OBJECTS		= \
 #
 MMUX_CHECKS_IMPORT_SOURCES	= \
 	lib/mmux-checks-core.import.scm		\
-	lib/mmux-checks-rsix.import.scm		\
+	lib/mmux-checks-compat.import.scm	\
 	lib/mmux-checks-version.import.scm	\
 	lib/mmux.checks.import.scm
 
@@ -48,7 +48,7 @@ MMUX_CHECKS_IMPORT_SOURCES	= \
 #
 MMUX_CHECKS_IMPORT_LIBS	= \
 	lib/mmux-checks-core.import.$(MMUX_SOEXT)	\
-	lib/mmux-checks-rsix.import.$(MMUX_SOEXT)	\
+	lib/mmux-checks-compat.import.$(MMUX_SOEXT)	\
 	lib/mmux-checks-version.import.$(MMUX_SOEXT)
 
 # This is the extension library file pathname.
@@ -97,20 +97,18 @@ lib/mmux-checks-version.import.$(MMUX_SOEXT): lib/mmux-checks-version.import.scm
 
 ## --------------------------------------------------------------------
 
-lib/mmux-checks-rsix.$(OBJEXT): lib/mmux-checks-rsix.scm $(MMUX_OBJECTS_DEPS)
+lib/mmux-checks-compat.$(OBJEXT): lib/mmux-checks-compat.scm $(MMUX_OBJECTS_DEPS)
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) $(@) $(<)
-	@$(MV) mmux-checks-rsix.import.scm lib/mmux-checks-rsix.import.scm
+	@$(MV) mmux-checks-compat.import.scm lib/mmux-checks-compat.import.scm
 
-lib/mmux-checks-rsix.import.scm: lib/mmux-checks-rsix.$(OBJEXT)
+lib/mmux-checks-compat.import.scm: lib/mmux-checks-compat.$(OBJEXT)
 
-lib/mmux-checks-rsix.import.$(MMUX_SOEXT): lib/mmux-checks-rsix.import.scm
+lib/mmux-checks-compat.import.$(MMUX_SOEXT): lib/mmux-checks-compat.import.scm
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_LIBRARY) $(@) $(<)
 
 ## --------------------------------------------------------------------
 
-lib/mmux-checks-core.$(OBJEXT): lib/mmux-checks-core.scm	\
-		lib/mmux-checks-rsix.import.$(MMUX_SOEXT)	\
-		$(MMUX_OBJECTS_DEPS)
+lib/mmux-checks-core.$(OBJEXT): lib/mmux-checks-core.scm lib/mmux-checks-compat.import.$(MMUX_SOEXT) $(MMUX_OBJECTS_DEPS)
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) $(@) $(<)
 	@$(MV) mmux-checks-core.import.scm lib/mmux-checks-core.import.scm
 
