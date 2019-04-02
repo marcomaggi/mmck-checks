@@ -42,33 +42,38 @@ MMUX_CHECKS_IMPORT_SOURCES	= \
 	lib/mmux.checks.version.import.scm	\
 	lib/mmux.checks.import.scm
 
-# This does not include:
+# The module's import libraries needed to compile main module's object
+# file.  It does not include the main import library:
 #
-#   lib/mmux-checks.import.$(MMUX_SOEXT)
+#   lib/mmux.checks.import.$(MMUX_SOEXT)
 #
-MMUX_CHECKS_IMPORT_LIBS	= \
+MMUX_CHECKS_IMPORT_DEPS	= \
 	lib/mmux.checks.core.import.$(MMUX_SOEXT)	\
 	lib/mmux.checks.compat.import.$(MMUX_SOEXT)	\
 	lib/mmux.checks.version.import.$(MMUX_SOEXT)
 
-# This is the extension library file pathname.
+# The import libraries  needed to compile new code  using the library.
+# We need to build and install all of them.
 #
-MMUX_CHECKS_LIBRARY		= lib/mmux.checks.$(MMUX_SOEXT)
+MMUX_CHECKS_IMPORT_LIBS	= \
+	lib/mmux.checks.core.import.$(MMUX_SOEXT)	\
+	lib/mmux.checks.compat.import.$(MMUX_SOEXT)	\
+	lib/mmux.checks.version.import.$(MMUX_SOEXT)	\
+	lib/mmux.checks.import.$(MMUX_SOEXT)
 
-# This is the import library file pathname.
+# This is the shared library file pathname.
 #
-MMUX_CHECKS_IMPORT_LIBRARY	= lib/mmux.checks.import.$(MMUX_SOEXT)
+MMUX_CHECKS_LIBRARY	= lib/mmux.checks.$(MMUX_SOEXT)
 
 ## --------------------------------------------------------------------
 
 EXTRA_DIST	+= $(MMUX_CHECKS_MODULES)
 
 CLEANFILES	+= \
-	$(MMUX_CHECKS_LIBRARY)	\
-	$(MMUX_CHECKS_IMPORT_LIBRARY)	\
-	$(MMUX_CHECKS_OBJECTS)	\
-	$(MMUX_CHECKS_IMPORT_SOURCES)	\
-	$(MMUX_CHECKS_IMPORT_LIBS)
+	$(MMUX_CHECKS_LIBRARY)		\
+	$(MMUX_CHECKS_OBJECTS)		\
+	$(MMUX_CHECKS_IMPORT_LIBS)	\
+	$(MMUX_CHECKS_IMPORT_SOURCES)
 
 # These variables are parsed by GNU Automake to build the main library
 # targets and install them under the directory $(MMUX_CHICKEN_LIBDIR).
@@ -82,7 +87,7 @@ CLEANFILES	+= \
 # permissions 0644.
 #
 checksdir	= $(MMUX_CHICKEN_LIBDIR)
-checks_SCRIPTS	= $(MMUX_CHECKS_LIBRARY) $(MMUX_CHECKS_IMPORT_LIBRARY)
+checks_SCRIPTS	= $(MMUX_CHECKS_LIBRARY) $(MMUX_CHECKS_IMPORT_LIBS)
 
 ## --------------------------------------------------------------------
 
@@ -122,13 +127,13 @@ lib/mmux.checks.core.import.$(MMUX_SOEXT): lib/mmux.checks.core.import.scm
 # This is the main compilation unit and it defines the main module; it
 # depends upon all the import libraries of the other modules.
 #
-lib/mmux.checks.$(OBJEXT): lib/mmux.checks.scm $(MMUX_CHECKS_IMPORT_LIBS) $(MMUX_OBJECTS_DEPS)
+lib/mmux.checks.$(OBJEXT): lib/mmux.checks.scm $(MMUX_CHECKS_IMPORT_DEPS) $(MMUX_OBJECTS_DEPS)
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) $(@) $(<)
 	@$(MV) mmux.checks.import.scm lib/mmux.checks.import.scm
 
 lib/mmux.checks.import.scm: lib/mmux.checks.$(OBJEXT)
 
-$(MMUX_CHECKS_IMPORT_LIBRARY): lib/mmux.checks.import.scm
+lib/mmux.checks.import.$(MMUX_SOEXT): lib/mmux.checks.import.scm
 	$(MMUX_LIB_ENV) $(CSC_COMPILE_LIBRARY) $(@) $(<)
 
 ## --------------------------------------------------------------------
