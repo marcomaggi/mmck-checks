@@ -6,7 +6,9 @@
 Revision 0.1.0-devel.1
 ----------------------
 
-* ...
+* Changed handling of package version.
+
+* BACKWARDS INCOMPATIBILITY Changed API of package version inspection.
 
 
 Revision 0.1.0-devel.0

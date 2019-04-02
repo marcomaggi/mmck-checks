@@ -30,24 +30,26 @@
 	 (emit-import-library mmux.checks.version))
 
 (module (mmux.checks.version)
-    *
+    (mmux-checks-package-major-version
+     mmux-checks-package-minor-version
+     mmux-checks-package-patch-level
+     mmux-checks-package-prerelease-tag
+     mmux-checks-package-build-metadata
+     mmux-checks-package-version
+     mmux-checks-package-semantic-version)
   (import (scheme)
     (prefix mmux.checks.config config::))
 
 
 ;;;; version functions
 
-(define (mmux-checks-version-string)
-  config::mmux_chicken_checks_VERSION_INTERFACE_STRING)
-
-(define (mmux-checks-version-interface-current)
-  config::mmux_chicken_checks_VERSION_INTERFACE_CURRENT)
-
-(define (mmux-checks-version-interface-revision)
-  config::mmux_chicken_checks_VERSION_INTERFACE_REVISION)
-
-(define (mmux-checks-version-interface-age)
-  config::mmux_chicken_checks_VERSION_INTERFACE_AGE)
+(define (mmux-checks-package-major-version)		config::MMUX_PKG_MAJOR_VERSION)
+(define (mmux-checks-package-minor-version)		config::MMUX_PKG_MINOR_VERSION)
+(define (mmux-checks-package-patch-level)		config::MMUX_PKG_PATCH_LEVEL)
+(define (mmux-checks-package-prerelease-tag)		config::MMUX_PKG_PRERELEASE_TAG)
+(define (mmux-checks-package-build-metadata)		config::MMUX_PKG_BUILD_METADATA)
+(define (mmux-checks-package-version)			config::MMUX_PKG_VERSION)
+(define (mmux-checks-package-semantic-version)		config::MMUX_PKG_SEMANTIC_VERSION)
 
 
 ;;;; done

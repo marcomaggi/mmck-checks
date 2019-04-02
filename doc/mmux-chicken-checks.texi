@@ -39,13 +39,15 @@
 
 @c ------------------------------------------------------------
 
-@set PackageAutoconfPrefix              MMUX_CHICKEN_CHECKS
-@set PackagePkgconfigModule             mmux-chicken-checks
+@set PackageStem                checks
 
-@set GithubUrl                 @url{https://github.com/marcomaggi/@value{PACKAGE_NICKNAME}}
-@set BitbucketUrl              @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}}
-@set DownloadUrl               @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}/downloads}
-@set DocumentationUrl          @url{https://marcomaggi.github.io/docs/@value{PACKAGE_NICKNAME}.html}
+@set PackageAutoconfPrefix      MMUX_CHICKEN_CHECKS
+@set PackagePkgconfigModule     mmux-chicken-checks
+
+@set GithubUrl                  @url{https://github.com/marcomaggi/@value{PACKAGE_NICKNAME}}
+@set BitbucketUrl               @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}}
+@set DownloadUrl                @url{https://bitbucket.org/marcomaggi/@value{PACKAGE_NICKNAME}/downloads}
+@set DocumentationUrl           @url{https://marcomaggi.github.io/docs/@value{PACKAGE_NICKNAME}.html}
 
 @c page
 @c ------------------------------------------------------------
@@ -219,28 +221,59 @@ To require the library and import its syntactic bindings in a module we can do:
 @chapter Version functions
 
 
-The installed libraries follow version numbering as established by the @gnu{} Autotools.  For an
-explanation of interface numbers as managed by @gnu{} Libtool @xref{Libtool versioning, interface,
-Libtool's versioning system, libtool, Shared library support for @gnu{}}.
+@value{PACKAGE}'s version number follows the specification of @dfn{Semantic Versioning} version 2.0
+as outlined at:
+
+@center @url{https://semver.org/}
+
+@noindent
+the following functions are available to inspect the version specification at runtime.
 
 
-@defun mmux-checks-version-string
-Return a string representing the interface version number.
+@defun mmux-@value{PackageStem}-package-major-version
+Return a fixnum representing the package's major version number.  As example, if the full semantic
+version is @samp{1.2.3-devel.0+x86-64}: the major version number is the fixnum @samp{1}.
 @end defun
 
 
-@defun mmux-checks-version-interface-current
-Return an integer representing the library interface current number.
+@defun mmux-@value{PackageStem}-package-minor-version
+Return a fixnum representing the package's minor version number.  As example, if the full semantic
+version is @samp{1.2.3-devel.0+x86-64}: the minor version number is the fixnum @samp{2}.
 @end defun
 
 
-@defun mmux-checks-version-interface-revision
-Return an integer representing the library interface current revision number.
+@defun mmux-@value{PackageStem}-package-patch-level
+Return a fixnum representing the package's patch level number.  As example, if the full semantic
+version is @samp{1.2.3-devel.0+x86-64}: the patch level number is the fixnum @samp{3}.
 @end defun
 
 
-@defun mmux-checks-version-interface-age
-Return an integer representing the library interface current age.
+@defun mmux-@value{PackageStem}-package-prerelease-tag
+Return a string representing the package's prerelease tag.  As example, if the full semantic version
+is @samp{1.2.3-devel.0+x86-64}: the prerelease tag is the string @samp{"devel.0"}.  This string may
+be empty.
+@end defun
+
+
+@defun mmux-@value{PackageStem}-package-build-metadata
+Return a string representing the package's build metadata.  As example, if the full semantic version
+is @samp{1.2.3-devel.0+x86-64}: the build metadata is the string @samp{"x86-64"}.  This string may
+be empty.  We need to remember that this specification segment must contain only @ascii{}
+alphanumerics and hyphen @samp{[0-9A-Za-z-]}; underscores are @strong{not} allowed.
+@end defun
+
+
+@defun mmux-@value{PackageStem}-package-version
+Return a string representing the package's version.  As example, if the full semantic version is
+@samp{1.2.3-devel.0+x86-64}: the package version is the string @samp{"1.2.3-devel.0"}, without the
+build metadata.
+@end defun
+
+
+@defun mmux-@value{PackageStem}-package-semantic-version
+Return a string representing the package's semantic version.  As example, if the full semantic
+version is @samp{1.2.3-devel.0+x86-64}: the package version is the string
+@samp{"v1.2.3-devel.0+x86-64"}, notice the leading character @samp{v}.
 @end defun
 
 @c page

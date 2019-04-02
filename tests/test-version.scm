@@ -31,16 +31,19 @@
 (module (test-version)
     ()
   (import (scheme)
-	  (prefix (mmux checks) checks::)
+	  (mmux checks)
 	  (chicken pretty-print))
 
 
 ;;;; stuff
 
-(pretty-print (list 'version-string		(checks::mmux-checks-version-string)))
-(pretty-print (list 'version-interface-current	(checks::mmux-checks-version-interface-current)))
-(pretty-print (list 'version-interface-revision	(checks::mmux-checks-version-interface-revision)))
-(pretty-print (list 'version-interface-age	(checks::mmux-checks-version-interface-age)))
+(pretty-print (list 'mmux-checks-package-major-version (mmux-checks-package-major-version)))
+(pretty-print (list 'mmux-checks-package-minor-version (mmux-checks-package-minor-version)))
+(pretty-print (list 'mmux-checks-package-patch-level (mmux-checks-package-patch-level)))
+(pretty-print (list 'mmux-checks-package-prerelease-tag (mmux-checks-package-prerelease-tag)))
+(pretty-print (list 'mmux-checks-package-build-metadata (mmux-checks-package-build-metadata)))
+(pretty-print (list 'mmux-checks-package-version (mmux-checks-package-version)))
+(pretty-print (list 'mmux-checks-package-semantic-version (mmux-checks-package-semantic-version)))
 
 
 ;;;; done

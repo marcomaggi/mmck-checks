@@ -2,16 +2,22 @@
 ;;
 
 (module (mmux.checks.config)
-    (mmux_chicken_checks_VERSION_INTERFACE_CURRENT
-     mmux_chicken_checks_VERSION_INTERFACE_REVISION
-     mmux_chicken_checks_VERSION_INTERFACE_AGE
-     mmux_chicken_checks_VERSION_INTERFACE_STRING)
+    (MMUX_PKG_MAJOR_VERSION
+     MMUX_PKG_MINOR_VERSION
+     MMUX_PKG_PATCH_LEVEL
+     MMUX_PKG_PRERELEASE_TAG
+     MMUX_PKG_BUILD_METADATA
+     MMUX_PKG_VERSION
+     MMUX_PKG_SEMANTIC_VERSION)
   (import (scheme))
 
-  (define mmux_chicken_checks_VERSION_INTERFACE_CURRENT		@mmux_chicken_checks_VERSION_INTERFACE_CURRENT@)
-  (define mmux_chicken_checks_VERSION_INTERFACE_REVISION	@mmux_chicken_checks_VERSION_INTERFACE_REVISION@)
-  (define mmux_chicken_checks_VERSION_INTERFACE_AGE		@mmux_chicken_checks_VERSION_INTERFACE_AGE@)
-  (define mmux_chicken_checks_VERSION_INTERFACE_STRING		"@mmux_chicken_checks_VERSION_INTERFACE_STRING@")
+  (define MMUX_PKG_MAJOR_VERSION	@MMUX_PKG_MAJOR_VERSION@)
+  (define MMUX_PKG_MINOR_VERSION	@MMUX_PKG_MINOR_VERSION@)
+  (define MMUX_PKG_PATCH_LEVEL		@MMUX_PKG_PATCH_LEVEL@)
+  (define MMUX_PKG_PRERELEASE_TAG	"@MMUX_PKG_PRERELEASE_TAG@")
+  (define MMUX_PKG_BUILD_METADATA	"@MMUX_PKG_BUILD_METADATA@")
+  (define MMUX_PKG_VERSION		"@MMUX_PKG_VERSION@")
+  (define MMUX_PKG_SEMANTIC_VERSION	"@MMUX_PKG_SEMANTIC_VERSION@")
 
   #| end of module |# )
 

@@ -7,7 +7,6 @@ AC_INIT([MMUX CHICKEN Checks],[MMUX_PACKAGE_VERSION],
   [marco.maggi-ipsu@poste.it],
   [mmux-chicken-checks],[http://github.com/marcomaggi/mmux-chicken-checks])
 MMUX_INIT
-MMUX_CHICKEN_LIBRARY_VERSIONS([mmux_chicken_checks],1,0,0)
 AC_REVISION([0.1])
 AC_COPYRIGHT([Copyright (c) 2019 Marco Maggi <marco.maggi-ipsu@poste.it>
 
