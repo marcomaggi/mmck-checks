@@ -245,6 +245,7 @@ MMUX_INSTALLCHECK_ENV += MMUX_BUILDDIR=$(builddir); export MMUX_BUILDDIR;
 
 installcheck-local: $(TESTS)
 	@for f in $(TESTS); do $(MMUX_INSTALLCHECK_ENV) $(builddir)/$$f; done
+	@for f in $(srcdir)/tests/test-*.scm; do $(MMUX_INSTALLCHECK_ENV) $(CHICKEN_INTERPRETER) -script $$f; done
 
 
 #### running the interpreter and the tests
