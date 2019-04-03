@@ -2,7 +2,7 @@
 #
 
 AC_PREREQ([2.69])
-MMUX_PKG_VERSIONS([0],[1],[0],[devel.1])
+MMUX_PKG_VERSIONS([0],[1],[0],[devel.2])
 AC_INIT([MMUX CHICKEN Checks],[MMUX_PACKAGE_VERSION],
   [marco.maggi-ipsu@poste.it],
   [mmux-chicken-checks],[http://github.com/marcomaggi/mmux-chicken-checks])
