@@ -1,4 +1,4 @@
-# mmux-chicken-rules.make --
+# mmck-rules.make --
 #
 # This file is meant to be included by "Makefile.am".
 
@@ -15,7 +15,7 @@ dist_doc_DATA		= README COPYING
 # Because.
 #
 OBJEXT			= o
-MMUX_SOEXT		= so
+MMCK_SOEXT		= so
 
 MV			= mv
 
@@ -99,12 +99,12 @@ CSC_LINK_PROGRAM		= $(CHICKEN_COMPILER) $(AM_CHICKEN_PROGFLAGS) -o
 # modules' import  libraries while  compiling modules  importing other
 # modules.
 #
-MMUX_LIB_REPOSITORY_PATH	= $(abs_builddir)/lib:$(CHICKEN_REPOSITORY_PATH)
+MMCK_LIB_REPOSITORY_PATH	= $(abs_builddir)/lib:$(CHICKEN_REPOSITORY_PATH)
 
 # This is  the shell environment  in which  we invoke the  compiler to
 # compile object files and link the extension library.
 #
-MMUX_LIB_ENV			= CHICKEN_REPOSITORY_PATH=$(MMUX_LIB_REPOSITORY_PATH); export CHICKEN_REPOSITORY_PATH;
+MMCK_LIB_ENV			= CHICKEN_REPOSITORY_PATH=$(MMCK_LIB_REPOSITORY_PATH); export CHICKEN_REPOSITORY_PATH;
 
 ## --------------------------------------------------------------------
 
@@ -114,7 +114,7 @@ MMUX_LIB_ENV			= CHICKEN_REPOSITORY_PATH=$(MMUX_LIB_REPOSITORY_PATH); export CHI
 # directory "$(builddir)/lib" exists,  even when we perform  an out of
 # tree build.
 #
-MMUX_OBJECTS_DEPS		= lib/$(am__dirstamp)
+MMCK_OBJECTS_DEPS		= lib/$(am__dirstamp)
 
 CLEANFILES			+= lib/$(am__dirstamp)
 
@@ -132,30 +132,30 @@ lib/$(am__dirstamp):
 # This  variable collects  the  shell environment  that  is set  while
 # running the test programs with "make check".
 #
-MMUX_CHECK_ENV =
+MMCK_CHECK_ENV =
 
 # Let's make  sure the  compiler and  the test  programs can  find the
 # libraries built by this package; for this purpose we prepend a local
 # directory to CHICKEN_REPOSITORY_PATH.
 #
-MMUX_CHECK_ENV += CHICKEN_REPOSITORY_PATH=$(abs_builddir)/lib:$(CHICKEN_REPOSITORY_PATH); export CHICKEN_REPOSITORY_PATH;
+MMCK_CHECK_ENV += CHICKEN_REPOSITORY_PATH=$(abs_builddir)/lib:$(CHICKEN_REPOSITORY_PATH); export CHICKEN_REPOSITORY_PATH;
 
 # In this shell environment we also set LD_LIBRARY_PATH (for Unix) and
 # DYLD_LIBRARY_PATH (for Darwin) to allow  the programs to find shared
 # libraries  that are  built using  GNU Libtool.   These settings  are
 # there even if this package does not build such libraries.  Sue me...
 #
-MMUX_CHECK_ENV += LD_LIBRARY_PATH=$(builddir)/.libs:$(LD_LIBRARY_PATH); export LD_LIBRARY_PATH;
-MMUX_CHECK_ENV += DYLD_LIBRARY_PATH=$(builddir)/.libs:$(DYLD_LIBRARY_PATH); export DYLD_LIBRARY_PATH;
+MMCK_CHECK_ENV += LD_LIBRARY_PATH=$(builddir)/.libs:$(LD_LIBRARY_PATH); export LD_LIBRARY_PATH;
+MMCK_CHECK_ENV += DYLD_LIBRARY_PATH=$(builddir)/.libs:$(DYLD_LIBRARY_PATH); export DYLD_LIBRARY_PATH;
 
 # While  running "make  check" with  a  test suite  using the  library
-# "(mmux checks)":  we do not want  a quiet execution, rather  we want
+# "(mmck checks)":  we do not want  a quiet execution, rather  we want
 # the output to go to the log files.
 #
-MMUX_CHECK_ENV += CHECKS_QUIET=no; export CHECKS_QUIET;
+MMCK_CHECK_ENV += CHECKS_QUIET=no; export CHECKS_QUIET;
 
 # While  running "make  check" with  a  test suite  using the  library
-# "(mmux checks)": we might want to  select a set of tests to execute.
+# "(mmck checks)": we might want to  select a set of tests to execute.
 # For this we could run:
 #
 #   make check CHECKS_NAME=<test-name>
@@ -166,18 +166,18 @@ MMUX_CHECK_ENV += CHECKS_QUIET=no; export CHECKS_QUIET;
 #
 # which is shorter.
 #
-MMUX_CHECK_ENV += CHECKS_NAME=$(name); export CHECKS_NAME;
+MMCK_CHECK_ENV += CHECKS_NAME=$(name); export CHECKS_NAME;
 
 # Occasionally we might want to hand  some pathname to the code of the
 # test programs, to read some sort of data files.
 #
-MMUX_CHECK_ENV += MMUX_SOURCE_PATH=$(srcdir)/tests:$(srcdir)/lib; export MMUX_SOURCE_PATH;
-MMUX_CHECK_ENV += MMUX_SRCDIR=$(srcdir)/tests; export MMUX_SRCDIR;
-MMUX_CHECK_ENV += MMUX_BUILDDIR=$(builddir); export MMUX_BUILDDIR;
+MMCK_CHECK_ENV += MMCK_SOURCE_PATH=$(srcdir)/tests:$(srcdir)/lib; export MMCK_SOURCE_PATH;
+MMCK_CHECK_ENV += MMCK_SRCDIR=$(srcdir)/tests; export MMCK_SRCDIR;
+MMCK_CHECK_ENV += MMCK_BUILDDIR=$(builddir); export MMCK_BUILDDIR;
 
 # This interfaces with GNU Automake's parallel test harness.
 #
-AM_TESTS_ENVIRONMENT	= $(MMUX_CHECK_ENV)
+AM_TESTS_ENVIRONMENT	= $(MMCK_CHECK_ENV)
 
 ## --------------------------------------------------------------------
 
@@ -185,7 +185,7 @@ AM_TESTS_ENVIRONMENT	= $(MMUX_CHECK_ENV)
 # directory "$(builddir)/tests" exists, even when we perform an out of
 # tree build.
 #
-MMUX_CHECK_DEPS	= tests/$(am__dirstamp)
+MMCK_CHECK_DEPS	= tests/$(am__dirstamp)
 
 CLEANFILES	+= tests/$(am__dirstamp)
 
@@ -199,31 +199,31 @@ tests/$(am__dirstamp):
 # This  variable collects  the  shell environment  that  is set  while
 # running the test programs with "make installcheck".
 #
-MMUX_INSTALLCHECK_ENV =
+MMCK_INSTALLCHECK_ENV =
 
 # Let's make  sure the  compiler and  the test  programs can  find the
 # libraries  built and  installed by  this package,  even when  we run
 # "make  distcheck";  for  this  purpose we  prepend  the  appropriate
 # directory to CHICKEN_REPOSITORY_PATH.
 #
-MMUX_INSTALLCHECK_ENV += CHICKEN_REPOSITORY_PATH=$(DESTDIR)$(MMUX_CHICKEN_LIBDIR):$(CHICKEN_REPOSITORY_PATH); export CHICKEN_REPOSITORY_PATH;
+MMCK_INSTALLCHECK_ENV += CHICKEN_REPOSITORY_PATH=$(DESTDIR)$(MMUX_CHICKEN_LIBDIR):$(CHICKEN_REPOSITORY_PATH); export CHICKEN_REPOSITORY_PATH;
 
 # In this shell environment we also set LD_LIBRARY_PATH (for Unix) and
 # DYLD_LIBRARY_PATH (for Darwin) to allow  the programs to find shared
 # libraries  that are  built using  GNU Libtool.   These settings  are
 # there even if this package does not build such libraries.  Sue me...
 #
-MMUX_INSTALLCHECK_ENV += LD_LIBRARY_PATH=$(DESTDIR)$(libdir):$(LD_LIBRARY_PATH); export LD_LIBRARY_PATH;
-MMUX_INSTALLCHECK_ENV += DYLD_LIBRARY_PATH=$(DESTDIR)$(libdir):$(DYLD_LIBRARY_PATH); export DYLD_LIBRARY_PATH;
+MMCK_INSTALLCHECK_ENV += LD_LIBRARY_PATH=$(DESTDIR)$(libdir):$(LD_LIBRARY_PATH); export LD_LIBRARY_PATH;
+MMCK_INSTALLCHECK_ENV += DYLD_LIBRARY_PATH=$(DESTDIR)$(libdir):$(DYLD_LIBRARY_PATH); export DYLD_LIBRARY_PATH;
 
 # While  running  "make installcheck"  with  a  test suite  using  the
-# library "(mmux checks)": we do not want a quiet execution, rather we
+# library "(mmck checks)": we do not want a quiet execution, rather we
 # want the output to go to the standard output.
 #
-MMUX_INSTALLCHECK_ENV += CHECKS_QUIET=no; export CHECKS_QUIET;
+MMCK_INSTALLCHECK_ENV += CHECKS_QUIET=no; export CHECKS_QUIET;
 
 # While  running "make  check" with  a  test suite  using the  library
-# "(mmux checks)": we might want to  select a set of tests to execute.
+# "(mmck checks)": we might want to  select a set of tests to execute.
 # For this we could run:
 #
 #   make installcheck CHECKS_NAME=<test-name>
@@ -234,18 +234,18 @@ MMUX_INSTALLCHECK_ENV += CHECKS_QUIET=no; export CHECKS_QUIET;
 #
 # which is shorter.
 #
-MMUX_INSTALLCHECK_ENV += CHECKS_NAME=$(name); export CHECKS_NAME;
+MMCK_INSTALLCHECK_ENV += CHECKS_NAME=$(name); export CHECKS_NAME;
 
 # Occasionally we might want to hand  some pathname to the code of the
 # test programs, to read some sort of data files.
 #
-MMUX_INSTALLCHECK_ENV += MMUX_SOURCE_PATH=$(srcdir)/tests:$(srcdir)/lib; export MMUX_SOURCE_PATH;
-MMUX_INSTALLCHECK_ENV += MMUX_SRCDIR=$(srcdir)/tests; export MMUX_SRCDIR;
-MMUX_INSTALLCHECK_ENV += MMUX_BUILDDIR=$(builddir); export MMUX_BUILDDIR;
+MMCK_INSTALLCHECK_ENV += MMCK_SOURCE_PATH=$(srcdir)/tests:$(srcdir)/lib; export MMCK_SOURCE_PATH;
+MMCK_INSTALLCHECK_ENV += MMCK_SRCDIR=$(srcdir)/tests; export MMCK_SRCDIR;
+MMCK_INSTALLCHECK_ENV += MMCK_BUILDDIR=$(builddir); export MMCK_BUILDDIR;
 
 installcheck-local: $(TESTS)
-	@for f in $(TESTS); do $(MMUX_INSTALLCHECK_ENV) $(builddir)/$$f; done
-	@for f in $(srcdir)/tests/test-*.scm; do $(MMUX_INSTALLCHECK_ENV) $(CHICKEN_INTERPRETER) -no-init -script $$f; done
+	@for f in $(TESTS); do $(MMCK_INSTALLCHECK_ENV) $(builddir)/$$f; done
+	@for f in $(srcdir)/tests/test-*.scm; do $(MMCK_INSTALLCHECK_ENV) $(CHICKEN_INTERPRETER) -no-init -script $$f; done
 
 
 #### running the interpreter and the tests
@@ -253,9 +253,9 @@ installcheck-local: $(TESTS)
 .PHONY: repl test tests
 
 repl:
-	$(MMUX_CHECK_ENV) $(CHICKEN_INTERPRETER)
+	$(MMCK_CHECK_ENV) $(CHICKEN_INTERPRETER)
 
 test tests: $(TESTS)
-	for f in $(builddir)/tests/test-*$(file)*.exe; do $(MMUX_CHECK_ENV) $$f; done
+	for f in $(builddir)/tests/test-*$(file)*.exe; do $(MMCK_CHECK_ENV) $$f; done
 
 ### end of file

@@ -1,6 +1,6 @@
-# MMUX CHICKEN Checks
+# MMCK Checks
 
-[![Build Status](https://travis-ci.org/marcomaggi/mmux-chicken-checks.svg?branch=master)](https://travis-ci.org/marcomaggi/mmux-chicken-checks)
+[![Build Status](https://travis-ci.org/marcomaggi/mmck-checks.svg?branch=master)](https://travis-ci.org/marcomaggi/mmck-checks)
 
 
 ## Introduction
@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 To install from a proper release tarball, do this:
 
 ```
-$ cd mmux-chicken-checks-0.1.0
+$ cd mmck-checks-0.1.0
 $ mkdir build
 $ cd build
 $ ../configure
@@ -73,13 +73,13 @@ The Makefile supports the DESTDIR  environment variable to install files
 in a temporary location, example: to see what will happen:
 
 ```
-$ make -n install DESTDIR=/tmp/mmux-chicken-checks
+$ make -n install DESTDIR=/tmp/mmck-checks
 ```
 
 to really do it:
 
 ```
-$ make install DESTDIR=/tmp/mmux-chicken-checks
+$ make install DESTDIR=/tmp/mmck-checks
 ```
 
 After the  installation it is  possible to verify the  installed library
@@ -95,7 +95,7 @@ Libtool), then  we must first run  the script `autogen.sh` from  the top
 source directory, to generate the needed files:
 
 ```
-$ cd mmux-chicken-checks
+$ cd mmck-checks
 $ sh autogen.sh
 
 ```
@@ -153,19 +153,19 @@ Pull Requests feature at the project's GitHub site.
 
 The latest release of this package can be downloaded from:
 
-[https://bitbucket.org/marcomaggi/mmux-chicken-checks/downloads](https://bitbucket.org/marcomaggi/mmux-chicken-checks/downloads)
+[https://bitbucket.org/marcomaggi/mmck-checks/downloads](https://bitbucket.org/marcomaggi/mmck-checks/downloads)
 
 development takes place at:
 
-[http://github.com/marcomaggi/mmux-chicken-checks/](http://github.com/marcomaggi/mmux-chicken-checks/)
+[http://github.com/marcomaggi/mmck-checks/](http://github.com/marcomaggi/mmck-checks/)
 
 and as backup at:
 
-[https://bitbucket.org/marcomaggi/mmux-chicken-checks/](https://bitbucket.org/marcomaggi/mmux-chicken-checks/)
+[https://bitbucket.org/marcomaggi/mmck-checks/](https://bitbucket.org/marcomaggi/mmck-checks/)
 
 the documentation is available online:
 
-[http://marcomaggi.github.io/docs/mmux-chicken-checks.html](http://marcomaggi.github.io/docs/mmux-chicken-checks.html)
+[http://marcomaggi.github.io/docs/mmck-checks.html](http://marcomaggi.github.io/docs/mmck-checks.html)
 
 the GNU Project software can be found here:
 
@@ -183,7 +183,7 @@ Travis CI is  a hosted, distributed continuous  integration service used
 to build and test software projects  hosted at GitHub.  We can find this
 project's dashboard at:
 
-[https://travis-ci.org/marcomaggi/mmux-chicken-checks](https://travis-ci.org/marcomaggi/mmux-chicken-checks)
+[https://travis-ci.org/marcomaggi/mmck-checks](https://travis-ci.org/marcomaggi/mmck-checks)
 
 Usage of this  service is configured through the  file `.travis.yml` and
 additional scripts are under the directory `meta/travis-ci`.

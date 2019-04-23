@@ -3,9 +3,9 @@
 
 AC_PREREQ([2.69])
 MMUX_PKG_VERSIONS([0],[1],[0],[devel.2])
-AC_INIT([MMUX CHICKEN Checks],[MMUX_PACKAGE_VERSION],
+AC_INIT([MMCK Checks],[MMUX_PACKAGE_VERSION],
   [marco.maggi-ipsu@poste.it],
-  [mmux-chicken-checks],[http://github.com/marcomaggi/mmux-chicken-checks])
+  [mmck-checks],[http://github.com/marcomaggi/mmck-checks])
 MMUX_INIT
 AC_REVISION([0.1])
 AC_COPYRIGHT([Copyright (c) 2019 Marco Maggi <marco.maggi-ipsu@poste.it>
@@ -66,7 +66,7 @@ AC_CACHE_SAVE
 #### finish
 
 AC_CONFIG_FILES([Makefile]
-   [meta/scripts/mmux-chicken-checks.pc]
+   [meta/scripts/mmck-checks.pc]
    [meta/slackware/slack-desc]
    [lib/config.scm])
 MMUX_OUTPUT

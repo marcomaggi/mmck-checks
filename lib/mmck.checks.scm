@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8-unix  -*-
 ;;;
-;;;Part of: MMUX CHICKEN Template
+;;;Part of: MMCK Checks
 ;;;Contents: main compilation unit
 ;;;Date: Mar 31, 2019
 ;;;
@@ -30,16 +30,16 @@
 
 ;;;; units and module header
 
-(declare (unit mmux.checks)
-	 (uses mmux.checks.core)
-	 (uses mmux.checks.version)
-	 (emit-import-library mmux.checks))
+(declare (unit mmck.checks)
+	 (uses mmck.checks.core)
+	 (uses mmck.checks.version)
+	 (emit-import-library mmck.checks))
 
-(module (mmux.checks)
+(module (mmck.checks)
     ()
   (import (only (chicken module) reexport))
-  (reexport (mmux.checks.core)
-	    (mmux.checks.version)
+  (reexport (mmck.checks.core)
+	    (mmck.checks.version)
 	    (rename (only (chicken base)
 			  make-parameter
 			  parameterize)

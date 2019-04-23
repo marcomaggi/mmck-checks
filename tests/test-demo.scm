@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8-unix  -*-
 ;;;
-;;;Part of: MMUX CHICKEN Checks
+;;;Part of: MMCK Checks
 ;;;Contents: test program for demo
 ;;;Date: Apr  1, 2019
 ;;;
@@ -26,13 +26,13 @@
 
 ;;;; units and module header
 
-(require-library (mmux checks))
+(require-library (mmck checks))
 
 (module (test-demo)
     ()
   (import (scheme)
 	  (chicken base)
-	  (mmux checks))
+	  (mmck checks))
 
 (check-set-mode! 'report-failed)
 (check-display "*** testing demo\n")

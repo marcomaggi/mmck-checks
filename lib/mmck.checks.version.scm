@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8-unix  -*-
 ;;;
-;;;Part of: MMUX CHICKEN Checks
+;;;Part of: MMCK Checks
 ;;;Contents: version functions
 ;;;Date: Mar 31, 2019
 ;;;
@@ -26,30 +26,30 @@
 
 ;;;; units and module header
 
-(declare (unit mmux.checks.version)
-	 (emit-import-library mmux.checks.version))
+(declare (unit mmck.checks.version)
+	 (emit-import-library mmck.checks.version))
 
-(module (mmux.checks.version)
-    (mmux-checks-package-major-version
-     mmux-checks-package-minor-version
-     mmux-checks-package-patch-level
-     mmux-checks-package-prerelease-tag
-     mmux-checks-package-build-metadata
-     mmux-checks-package-version
-     mmux-checks-package-semantic-version)
+(module (mmck.checks.version)
+    (mmck-checks-package-major-version
+     mmck-checks-package-minor-version
+     mmck-checks-package-patch-level
+     mmck-checks-package-prerelease-tag
+     mmck-checks-package-build-metadata
+     mmck-checks-package-version
+     mmck-checks-package-semantic-version)
   (import (scheme)
-    (prefix mmux.checks.config config::))
+    (prefix mmck.checks.config config::))
 
 
 ;;;; version functions
 
-(define (mmux-checks-package-major-version)		config::MMUX_PKG_MAJOR_VERSION)
-(define (mmux-checks-package-minor-version)		config::MMUX_PKG_MINOR_VERSION)
-(define (mmux-checks-package-patch-level)		config::MMUX_PKG_PATCH_LEVEL)
-(define (mmux-checks-package-prerelease-tag)		config::MMUX_PKG_PRERELEASE_TAG)
-(define (mmux-checks-package-build-metadata)		config::MMUX_PKG_BUILD_METADATA)
-(define (mmux-checks-package-version)			config::MMUX_PKG_VERSION)
-(define (mmux-checks-package-semantic-version)		config::MMUX_PKG_SEMANTIC_VERSION)
+(define (mmck-checks-package-major-version)		config::MMUX_PKG_MAJOR_VERSION)
+(define (mmck-checks-package-minor-version)		config::MMUX_PKG_MINOR_VERSION)
+(define (mmck-checks-package-patch-level)		config::MMUX_PKG_PATCH_LEVEL)
+(define (mmck-checks-package-prerelease-tag)		config::MMUX_PKG_PRERELEASE_TAG)
+(define (mmck-checks-package-build-metadata)		config::MMUX_PKG_BUILD_METADATA)
+(define (mmck-checks-package-version)			config::MMUX_PKG_VERSION)
+(define (mmck-checks-package-semantic-version)		config::MMUX_PKG_SEMANTIC_VERSION)
 
 
 ;;;; done

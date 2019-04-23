@@ -1,10 +1,12 @@
 -*- coding: utf-8-unix -*-
 
-		   News file for MMUX CHICKEN Checks
-		   =================================
+		       News file for MMCK Checks
+		       =========================
 
 Revision 0.1.0-devel.2
 ----------------------
+
+* Renamed the project from MMUX CHICKEN Checks to MMCK Checks.
 
 * Tweaking makefile.
 
@@ -30,5 +32,5 @@ Revision 0.1.0-devel.0
 # mode: text
 # fill-column: 72
 # paragraph-start: "*"
-# ispell-local-dictionary: "en_GB"
+# ispell-local-dictionary: "en_GB-ise-w_accents"
 # End:

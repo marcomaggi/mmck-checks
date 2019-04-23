@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8-unix  -*-
 ;;;
-;;;Part of: MMUX CHICKEN Checks
+;;;Part of: MMCK CHICKEN Checks
 ;;;Contents: test program for version functions
 ;;;Date: Mar 31, 2019
 ;;;
@@ -26,24 +26,24 @@
 
 ;;;; units and module header
 
-(require-library (mmux checks))
+(require-library (mmck checks))
 
 (module (test-version)
     ()
   (import (scheme)
-	  (mmux checks)
+	  (mmck checks)
 	  (chicken pretty-print))
 
 
 ;;;; stuff
 
-(pretty-print (list 'mmux-checks-package-major-version (mmux-checks-package-major-version)))
-(pretty-print (list 'mmux-checks-package-minor-version (mmux-checks-package-minor-version)))
-(pretty-print (list 'mmux-checks-package-patch-level (mmux-checks-package-patch-level)))
-(pretty-print (list 'mmux-checks-package-prerelease-tag (mmux-checks-package-prerelease-tag)))
-(pretty-print (list 'mmux-checks-package-build-metadata (mmux-checks-package-build-metadata)))
-(pretty-print (list 'mmux-checks-package-version (mmux-checks-package-version)))
-(pretty-print (list 'mmux-checks-package-semantic-version (mmux-checks-package-semantic-version)))
+(pretty-print (list 'mmck-checks-package-major-version		(mmck-checks-package-major-version)))
+(pretty-print (list 'mmck-checks-package-minor-version		(mmck-checks-package-minor-version)))
+(pretty-print (list 'mmck-checks-package-patch-level		(mmck-checks-package-patch-level)))
+(pretty-print (list 'mmck-checks-package-prerelease-tag		(mmck-checks-package-prerelease-tag)))
+(pretty-print (list 'mmck-checks-package-build-metadata		(mmck-checks-package-build-metadata)))
+(pretty-print (list 'mmck-checks-package-version		(mmck-checks-package-version)))
+(pretty-print (list 'mmck-checks-package-semantic-version	(mmck-checks-package-semantic-version)))
 
 
 ;;;; done

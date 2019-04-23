@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8-unix  -*-
 ;;;
-;;;Part of: MMUX CHICKEN Checks
+;;;Part of: MMCK Checks
 ;;;Contents: compatibility module
 ;;;Date: Mar 31, 2019
 ;;;
@@ -27,10 +27,10 @@
 
 ;;;; units and module header
 
-(declare (unit mmux.checks.compat)
-	 (emit-import-library mmux.checks.compat))
+(declare (unit mmck.checks.compat)
+	 (emit-import-library mmck.checks.compat))
 
-(module (mmux.checks.compat)
+(module (mmck.checks.compat)
     (call-with-string-output-port error assertion-violation)
   (import (scheme)
 	  (chicken module)
