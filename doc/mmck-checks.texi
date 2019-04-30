@@ -366,8 +366,8 @@ terminating a test program with the statement:
 
 
 @deffn Syntax false-if-exception @var{form0} @var{form} ...
-Evaluate all the @var{form}s as in @func{begin}.  If an exception is
-raised: return @false{}.
+Evaluate all the @var{form}s as in @func{begin}.  If an exception is raised: return @false{};
+otherwise return the return value of the last @var{form}.
 @end deffn
 
 
@@ -382,36 +382,36 @@ When @var{name} is given: it is the name of this test, @ref{select, Selecting te
 @end deffn
 
 
-@c @deffn Syntax check-for-assertion-violation @meta{body} => @meta{expected-who/irritants}
-@c @deffnx {Auxiliary Syntax} =>
-@c Expand to:
+@deffn Syntax check-for-assertion-violation @meta{body} => @meta{expected-who/irritants}
+@deffnx {Auxiliary Syntax} =>
+Expand to:
 
-@c @lisp
-@c (check
-@c     (guard (E ((assertion-violation? E)
-@c                (list (condition-who E)
-@c                      (condition-irritants E))
-@c               (else E))
-@c       ?body)
-@c   => ?expected-who/irritants))
-@c @end lisp
-@c @end deffn
+@lisp
+(check
+    (condition-case (with-ignored-warnings ?body)
+      ((assertion-violation)
+       (list (get-condition-property 'exn 'location  #f)
+             (get-condition-property 'exn 'arguments #f)))
+      (E () E))
+  => ?expected-who/irritants)
+@end lisp
+@end deffn
 
 
-@c @deffn Syntax check-for-procedure-argument-violation @meta{body} => @meta{expected-who/irritants}
-@c @deffnx {Auxiliary Syntax} =>
-@c Expand to:
+@deffn Syntax check-for-procedure-argument-violation @meta{body} => @meta{expected-who/irritants}
+@deffnx {Auxiliary Syntax} =>
+Expand to:
 
-@c @lisp
-@c (check
-@c     (guard (E ((procedure-argument-violation? E)
-@c                (list (condition-who E)
-@c                      (condition-irritants E))
-@c               (else E))
-@c       ?body)
-@c   => ?expected-who/irritants))
-@c @end lisp
-@c @end deffn
+@lisp
+(check
+    (condition-case (with-ignored-warnings ?body)
+      ((procedure-argument-violation)
+       (list (get-condition-property 'exn 'location  #f)
+             (get-condition-property 'exn 'arguments #f)))
+      (E () E))
+  => ?expected-who/irritants)
+@end lisp
+@end deffn
 
 
 @c @deffn Syntax check-for-procedure-signature-argument-violation @meta{body} => @meta{expected-who/irritants}

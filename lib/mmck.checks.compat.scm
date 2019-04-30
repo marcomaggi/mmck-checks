@@ -66,17 +66,15 @@
 
 (define (error who message . irritants)
   (cnd::abort
-   (cnd::make-composite-condition
-     (cnd::make-property-condition 'exn 'who who)
-     (cnd::make-property-condition 'exn 'message message)
-     (cnd::make-property-condition 'exn 'irritants irritants))))
+   (cnd::condition
+    `(exn location ,who message ,message arguments ,irritants)
+    '(error))))
 
 (define (assertion-violation who message . irritants)
   (cnd::abort
-   (cnd::make-composite-condition
-     (cnd::make-property-condition '(exn) 'who who)
-     (cnd::make-property-condition '(exn) 'message message)
-     (cnd::make-property-condition '(exn) 'irritants irritants))))
+   (cnd::condition
+    `(exn location ,who message ,message arguments ,irritants)
+    '(assertion-violation))))
 
 
 ;;;; done

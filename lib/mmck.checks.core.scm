@@ -71,6 +71,10 @@
 	  (rename (only (chicken process-context)
 			get-environment-variable)
 		  (get-environment-variable	getenv))
+	  (only (chicken condition)
+		abort
+		condition
+		condition-case)
 	  (mmck.checks.compat))
 
 
@@ -331,9 +335,9 @@
 (define-syntax false-if-exception
   (syntax-rules ()
     ((_ ?form0 ?form ...)
-      (guard (exc (else #f))
-	(with-ignored-warnings
-	 ?form0 ?form ...)))))
+     (condition-case (with-ignored-warnings ?form0 ?form ...)
+       (() #f)))
+    ))
 
 (define-syntax check-for-true
   (syntax-rules ()
@@ -353,11 +357,11 @@
   (syntax-rules (=>)
     ((_ ?body => ?expected-who/irritants)
      (check
-	 (guard (E ((assertion-violation? E)
-		    (list (condition-who E)
-			  (condition-irritants E)))
-		   (else E))
-	   (with-ignored-warnings ?body))
+	 (condition-case (with-ignored-warnings ?body)
+	   ((assertion-violation)
+	    (list (get-condition-property 'exn 'location  #f)
+		  (get-condition-property 'exn 'arguments #f)))
+	   (E () E))
        => ?expected-who/irritants))
     ))
 
@@ -365,11 +369,11 @@
   (syntax-rules (=>)
     ((_ ?body => ?expected-who/irritants)
      (check
-	 (guard (E ((procedure-argument-violation? E)
-		    (list (condition-who E)
-			  (condition-irritants E)))
-		   (else E))
-	   (with-ignored-warnings ?body))
+	 (condition-case (with-ignored-warnings ?body)
+	   ((procedure-argument-violation)
+	    (list (get-condition-property 'exn 'location  #f)
+		  (get-condition-property 'exn 'arguments #f)))
+	   (E () E))
        => ?expected-who/irritants))
     ))
 
