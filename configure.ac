@@ -56,18 +56,12 @@ AC_CACHE_SAVE
 
 #### external libraries
 
-PKG_PREREQ([0.29])
-PKG_INSTALLDIR
-MMUX_CHECK_PKG_CONFIG_MACROS
-
-AC_CACHE_SAVE
+dnl AC_CACHE_SAVE
 
 
 #### finish
 
 AC_CONFIG_FILES([Makefile]
-   [meta/scripts/mmck-checks.pc]
-   [meta/slackware/slack-desc]
    [lib/config.scm])
 MMUX_OUTPUT
 AC_OUTPUT

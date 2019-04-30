@@ -2,10 +2,6 @@
 
 include meta/automake/mmck-rules.make
 
-## --------------------------------------------------------------------
-
-nodist_pkgconfig_DATA	= meta/scripts/mmck-checks.pc
-
 
 #### documentation
 

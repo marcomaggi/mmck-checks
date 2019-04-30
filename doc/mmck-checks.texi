@@ -1,7 +1,7 @@
 \input texinfo.tex
 @c %**start of header
 @setfilename mmck-checks.info
-@settitle @acronym{MMCK} Checks
+@settitle @sc{mmck} Checks
 @c %**end of header
 
 @include version.texi
@@ -16,7 +16,7 @@
 
 @c To be used as @value{PACKAGE} whenever we need to include the full
 @c name of this package.
-@set PACKAGE                    @acronym{MMCK} Checks
+@set PACKAGE                    @sc{mmck} Checks
 
 @c To be used as @value{PACKAGE} whenever we need to include the
 @c nickname of the project: the name that is used to compose the
@@ -53,6 +53,10 @@
 @c ------------------------------------------------------------
 @c Local macros.
 @c ------------------------------------------------------------
+
+@macro mmck{}
+@sc{mmck}
+@end macro
 
 @macro chicken{}
 @sc{CHICKEN}
