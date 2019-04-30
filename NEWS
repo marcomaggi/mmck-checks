@@ -3,10 +3,12 @@
 		       News file for MMCK Checks
 		       =========================
 
-Revision 0.2.0-devel.1
+Revision 0.2.0-devel.2
 ----------------------
 
-* ...
+* Better exceptional conditions handling.
+
+* Removed useless stuff from the distribution
 
 
 Revision 0.2.0-devel.0
