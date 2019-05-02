@@ -318,6 +318,14 @@
 (define (get-result)
   (reverse (result)))
 
+(define-syntax values->list
+  (syntax-rules ()
+    ((_ ?expr)
+     (call-with-values
+	 (lambda () ?expr)
+       list))
+    ))
+
 
 ;;;; more macros
 
