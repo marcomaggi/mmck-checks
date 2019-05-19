@@ -37,7 +37,8 @@
      check-passed?
 
      ;; result handling
-     (syntax: with-result) add-result get-result
+     (syntax: with-result call-with-values append list get-result result)
+     add-result get-result
 
      ;; more macros
      false-if-exception check-for-true check-for-false
