@@ -15,8 +15,9 @@ The library targets POSIX systems.
 The package uses the GNU Autotools and it is tested, using Travis CI, on
 both Ubuntu GNU+Linux systems and OS X systems.
 
-The last time  the maintainer bothered to update this  paragraph: he had
-tested CHICKEN 5.1.0.
+This package  should work  with CHICKEN  version 5+;  the last  time the
+maintainer  bothered to  update this  paragraph: he  had tested  CHICKEN
+5.1.0.
 
 ## License
 
