@@ -1,6 +1,6 @@
 ;;;This module is derived from SRFI 78 "Lightweight testing".
 ;;;
-;;;Copyright (c) 2009-2016, 2019 Marco Maggi <marco.maggi-ipsu@poste.it>
+;;;Copyright (c) 2009-2016, 2019 Marco Maggi <mrc.mgg@gmail.com>
 ;;;Copyright (c) 2005-2006 Sebastian Egner <Sebastian.Egner@philips.com>
 ;;;Modified by Derick Eddington for R6RS Scheme.
 ;;;Modified by Marco Maggi for CHICKEN.

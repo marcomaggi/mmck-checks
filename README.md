@@ -16,11 +16,11 @@ The package uses the GNU Autotools and it is tested, using Travis CI, on
 both Ubuntu GNU+Linux systems and OS X systems.
 
 The last time  the maintainer bothered to update this  paragraph: he had
-tested CHICKEN 5.0.0.
+tested CHICKEN 5.1.0.
 
 ## License
 
-Copyright (c) 2009-2016, 2019 Marco Maggi `marco.maggi-ipsu@poste.it`<br/>
+Copyright (c) 2009-2016, 2019 Marco Maggi `mrc.mgg@gmail.com`<br/>
 Copyright (c) 2005-2006 Sebastian Egner `Sebastian.Egner@philips.com`<br/>
 Modified by Derick Eddington for R6RS Scheme.<br/>
 Modified by Marco Maggi for CHICKEN.<br/>

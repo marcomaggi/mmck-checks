@@ -9,7 +9,7 @@
 ;;;	This unit defines compatibility functions and syntaxes for code running on an
 ;;;	augmented R6RS language.
 ;;;
-;;;Copyright (C) 2019 Marco Maggi <marco.maggi-ipsu@poste.it>
+;;;Copyright (C) 2019 Marco Maggi <mrc.mgg@gmail.com>
 ;;;
 ;;;This program is free software: you can  redistribute it and/or modify it under the
 ;;;terms of the GNU  Lesser General Public License as published  by the Free Software

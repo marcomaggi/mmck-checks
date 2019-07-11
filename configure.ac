@@ -4,11 +4,11 @@
 AC_PREREQ([2.69])
 MMUX_PKG_VERSIONS([0],[3],[0],[devel.0])
 AC_INIT([MMCK Checks],[MMUX_PACKAGE_VERSION],
-  [marco.maggi-ipsu@poste.it],
+  [mrc.mgg@gmail.com],
   [mmck-checks],[http://github.com/marcomaggi/mmck-checks])
 MMUX_INIT
 AC_REVISION([0.1])
-AC_COPYRIGHT([Copyright (c) 2019 Marco Maggi <marco.maggi-ipsu@poste.it>
+AC_COPYRIGHT([Copyright (c) 2019 Marco Maggi <mrc.mgg@gmail.com>
 
 Permission is hereby granted, free  of charge, to any person obtaining
 a  copy  of this  software  and  associated documentation  files  (the
