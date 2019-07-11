@@ -118,7 +118,9 @@ hand options to the compiler:
 
   Shared libraries will be installed under:
 
-			  ${libdir}/chicken/9
+		       ${libdir}/chicken/$VERSION
+
+where $VERSION is the version number for the installed CHICKEN.
 
 
 4. Usage

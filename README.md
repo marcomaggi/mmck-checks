@@ -119,8 +119,11 @@ $ make CHICKEN_FLAGS='-d3'
 Shared libraries will be installed under:
 
 ```
-${libdir}/chicken/9
+${libdir}/chicken/$VERSION
 ```
+
+where `$VERSION` is the version number of the installed CHICKEN.
+
 
 ## Usage
 
