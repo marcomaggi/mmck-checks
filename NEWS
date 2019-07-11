@@ -3,10 +3,14 @@
 		       News file for MMCK Checks
 		       =========================
 
-Revision 0.2.0-devel.5
+Revision 0.3.0-devel.0
 ----------------------
 
-* ...
+* Changed library installation directory to:
+
+     ${libdir}/chicken/$VERSION
+
+  where $VERSION is the version number of the CHICKEN package.
 
 
 Revision 0.2.0-devel.4
