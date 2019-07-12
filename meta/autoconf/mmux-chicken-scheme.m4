@@ -51,6 +51,12 @@ AC_DEFUN([MMUX_CHICKEN_SCHEME],
    AS_VAR_SET(MMUX_CHICKEN_LIBDIR,[${libdir}/chicken/$mmux_cv_chicken_release_NUMBER])
    AC_MSG_NOTICE([CHICKEN libraries will be installed under: $MMUX_CHICKEN_LIBDIR])
    AC_SUBST([MMUX_CHICKEN_LIBDIR])
+
+   # Flags variable  available on  the command  line of  "configure" and
+   # "make".
+   #
+   AS_VAR_SET_IF(CHICKEN_FLAGS,,[AS_VAR_SET(CHICKEN_FLAGS)])
+   AC_SUBST([CHICKEN_FLAGS])
    ])
 
 dnl end of file
