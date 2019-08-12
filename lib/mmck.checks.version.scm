@@ -38,10 +38,20 @@
      mmck-checks-package-version
      mmck-checks-package-semantic-version)
   (import (scheme)
-    (prefix mmck.checks.config config::))
+	  (prefix mmck.checks.config config::)
+	  (only (chicken base)
+		declare))
 
 
 ;;;; version functions
+
+(declare (type (mmck-checks-package-major-version	(-> fixnum)))
+	 (type (mmck-checks-package-minor-version	(-> fixnum)))
+	 (type (mmck-checks-package-patch-level		(-> fixnum)))
+	 (type (mmck-checks-package-prerelease-tag	(-> string)))
+	 (type (mmck-checks-package-build-metadata	(-> string)))
+	 (type (mmck-checks-package-version		(-> string)))
+	 (type (mmck-checks-package-semantic-version	(-> string))))
 
 (define (mmck-checks-package-major-version)		config::MMUX_PKG_MAJOR_VERSION)
 (define (mmck-checks-package-minor-version)		config::MMUX_PKG_MINOR_VERSION)

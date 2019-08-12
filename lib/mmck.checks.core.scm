@@ -64,8 +64,10 @@
 		  (write	chicken::write)
 		  (newline	chicken::newline))
 	  (rename (only (chicken base)
-			make-parameter parameterize)
-		  (parameterize	parametrise))
+			make-parameter
+			parameterize
+			declare)
+		  (parameterize	parameterise))
 	  (rename (only (chicken pretty-print)
 			pretty-print)
 		  (pretty-print	chicken::pretty-print))
@@ -76,11 +78,14 @@
 		abort
 		condition
 		condition-case)
+	  (only (chicken type)
+		:)
 	  (mmck.checks.compat))
 
 
 ;;; utilities
 
+(: check-quiet-tests? boolean)
 (define check-quiet-tests?
   (let ((S (getenv "CHECKS_QUIET")))
     (and S
@@ -88,33 +93,40 @@
 		  (not (zero? S)))
 	     (string=? S "yes")))))
 
+(: check-display (* -> undefined))
 (define (check-display thing)
   (unless check-quiet-tests?
     (chicken::display thing (current-error-port))))
 
+(: check-write (* -> undefined))
 (define (check-write thing)
   (unless check-quiet-tests?
     (chicken::write thing (current-error-port))))
 
+(: check-newline (-> undefined))
 (define (check-newline)
   (unless check-quiet-tests?
     (chicken::newline (current-error-port))))
 
+(: check-pretty-print (* -> undefined))
 (define (check-pretty-print thing)
   (unless check-quiet-tests?
     (chicken::pretty-print thing (current-error-port))))
 
+(: flush-checks-port (-> undefined))
 (define (flush-checks-port)
   (unless check-quiet-tests?
     (flush-output-port (current-error-port))))
 
+(declare (enforce-argument-types check-pretty-print/no-trailing-newline))
+(: check-pretty-print/no-trailing-newline (* #!optional output-port -> undefined))
 (define check-pretty-print/no-trailing-newline
   (case-lambda
    ((datum output-port)
     (unless check-quiet-tests?
       (let* ((os	(call-with-string-output-port
 			    (lambda (sop)
-			      (parametrise ((current-error-port sop))
+			      (parameterise ((current-error-port sop))
 				(check-pretty-print datum)))))
 	     (len	(string-length os))
 	     (os	(if (and (positive? len)
@@ -122,17 +134,21 @@
 					 (string-ref os (- len 1))))
 			    (substring os 0 (- len 1))
 			  os)))
-	(parametrise ((current-error-port output-port))
+	(parameterise ((current-error-port output-port))
 	  (check-display os)))))
    ((datum)
     (check-pretty-print/no-trailing-newline datum (current-error-port)))))
 
+(declare (enforce-argument-types string-prefix?))
+(: string-prefix? (string string -> boolean))
 (define (string-prefix? prefix the-string)
   (or (eq? prefix the-string)
       (let ((prelen (string-length prefix)))
 	(and (<= prelen (string-length the-string))
 	     (string=? prefix (substring the-string 0 prelen))))))
 
+(declare (enforce-argument-types string-suffix?))
+(: string-suffix? (string string -> boolean))
 (define (string-suffix? suffix the-string)
   (or (eq? suffix the-string)
       (let ((strlen (string-length the-string))
@@ -144,6 +160,7 @@
 
 ;;; mode handling
 
+(declare (type (checks:mode (procedure (#!optional symbol) . (fixnum)))))
 (define checks::mode
   ;;This  MAKE-PARAMETER call  will pass  its first  argument through  the validation
   ;;function in its second parameter.
@@ -156,22 +173,29 @@
 	((report)        100)
 	(else (error 'checks::mode "unrecognized mode for CHECKS::MODE" v))))))
 
+(declare (enforce-argument-types check-set-mode!))
+(: check-set-mode! (symbol -> fixnum))
 (define (check-set-mode! mode)
   (checks::mode mode))
 
 
 ;;; state handling
 
+(: check:correct fixnum)
+(: check:failed  list)
 (define check:correct 0)
 (define check:failed '())
 
+(: check-reset! (-> undefined))
 (define (check-reset!)
   (set! check:correct 0)
   (set! check:failed '()))
 
+(: check:add-correct! (-> undefined))
 (define (check:add-correct!)
   (set! check:correct (+ 1 check:correct)))
 
+(: check:add-failed! (* * * -> undefined))
 (define (check:add-failed! expression actual-result expected-result)
   (set! check:failed
 	(cons (list expression actual-result expected-result)
@@ -180,15 +204,19 @@
 
 ;;; reporting
 
+(: check:report-expression (* -> undefined))
 (define (check:report-expression expression)
   (check-newline)
   (check-pretty-print expression)
   (check-display " => "))
 
+(: check:report-actual-result (* -> undefined))
 (define (check:report-actual-result actual-result)
   (check-pretty-print actual-result)
   (check-display " ; "))
 
+(declare (enforce-argument-types check:report-correct))
+(: check:report-correct (fixnum -> undefined))
 (define (check:report-correct cases)
   (check-display "correct")
   (if (not (= cases 1))
@@ -198,6 +226,7 @@
 	(check-display " cases checked)")))
   (check-newline))
 
+(: check:report-failed (* -> undefined))
 (define (check:report-failed expected-result)
   (check-display "*** failed ***")
   (check-newline)
@@ -206,6 +235,7 @@
   (check-newline)
   (flush-checks-port))
 
+(: check-report (-> undefined))
 (define (check-report)
   (when (>= (checks::mode) 1)
     (check-newline)
@@ -246,6 +276,8 @@
 	 ;;Hard error for GNU Automake.
 	 (exit 99))))
 
+(declare (enforce-argument-types check-passed?))
+(: check-passed? (fixnum -> boolean))
 (define (check-passed? expected-total-count)
   (and (= (length check:failed) 0)
        (= check:correct expected-total-count)))
@@ -253,6 +285,10 @@
 
 ;;; simple checks
 
+(declare (enforce-argument-types checks::proc))
+(: checks::proc (forall ((?thunk	(-> *))
+			 (?equal	(* * -> boolean)))
+			(procedure (* ?thunk ?equal *) . ())))
 (define (checks::proc expression thunk equal expected-result)
   (case (checks::mode)
     ((0)
@@ -299,6 +335,7 @@
 
 ;;;; handling results
 
+(declare (type (result (procedure (#!optional *) . (*)))))
 (define result
   (make-parameter #f))
 
@@ -312,10 +349,12 @@
 	 (lambda args
 	   (append args (list (get-result)))))))))
 
+(: add-result (* -> *))
 (define (add-result value)
   (result (cons value (result)))
   value)
 
+(: get-result (-> list))
 (define (get-result)
   (reverse (result)))
 
@@ -444,6 +483,7 @@
 
 ;;;; selecting tests
 
+(: check-test-name (#!optional (or false string symbol) -> (or false string symbol)))
 (define check-test-name
   (make-parameter #f
     (lambda (value)
@@ -454,9 +494,11 @@
 	  (symbol->string value)
 	value))))
 
+(: selected-test (or false string))
 (define selected-test
   (getenv "CHECKS_NAME"))
 
+(: checks::eval-this-test? (-> boolean))
 (define (checks::eval-this-test?)
   (or (not selected-test)
       (zero? (string-length selected-test))

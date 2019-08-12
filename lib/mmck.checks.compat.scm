@@ -34,8 +34,10 @@
     (call-with-string-output-port error assertion-violation)
   (import (scheme)
 	  (chicken module)
+	  (chicken type)
 	  (prefix (chicken condition) cnd::)
 	  (only (chicken base)
+		declare
 		receive
 		open-output-string
 		get-output-string))
@@ -50,26 +52,36 @@
 
 ;;;; input/output
 
-(define (call-with-string-output-port proc)
-  (receive (port extract)
-      (open-string-output-port)
-    (proc port)
-    (extract)))
+(begin
+  (: open-string-output-port
+     (forall ((?getter (-> string)))
+             (-> output-port ?getter)))
+  (: call-with-string-output-port
+     (forall ((?printer (output-port -> undefined)))
+             (?printer -> string))))
 
 (define (open-string-output-port)
   (let ((port (open-output-string)))
     (values port (lambda ()
 		   (get-output-string port)))))
 
+(define (call-with-string-output-port proc)
+  (receive (port extract)
+      (open-string-output-port)
+    (proc port)
+    (extract)))
+
 
 ;;;; errors
 
+(: error (procedure (symbol string #!rest) . (noreturn)))
 (define (error who message . irritants)
   (cnd::abort
    (cnd::condition
     `(exn location ,who message ,message arguments ,irritants)
     '(error))))
 
+(: error (procedure (symbol string #!rest) . (noreturn)))
 (define (assertion-violation who message . irritants)
   (cnd::abort
    (cnd::condition
