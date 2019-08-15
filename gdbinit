@@ -6,10 +6,10 @@
 #
 # From the commmand line of make:
 #
-#   $ make check GDB='gdb --args' TESTS=tests/test-demo.exe
+#   $ (CHICKEN_REPOSITORY_PATH=$PWD/lib:$PWD/tests:$CHICKEN_REPOSITORY_PATH \
+#        gdb --init-command=../gdbinit --args tests/test-demo.exe)
 #
 
 directory ./lib ./tests
-run
 
 ### end of file
