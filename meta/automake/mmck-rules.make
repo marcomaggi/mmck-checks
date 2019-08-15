@@ -177,7 +177,7 @@ MMCK_CHECK_ENV += MMCK_BUILDDIR=$(builddir); export MMCK_BUILDDIR;
 
 # This interfaces with GNU Automake's parallel test harness.
 #
-AM_TESTS_ENVIRONMENT	= $(MMCK_CHECK_ENV) $(GDB)
+AM_TESTS_ENVIRONMENT	= $(MMCK_CHECK_ENV)
 
 ## --------------------------------------------------------------------
 
@@ -257,5 +257,12 @@ repl:
 
 test tests: $(TESTS)
 	for f in $(builddir)/tests/test-*$(file)*.exe; do $(MMCK_CHECK_ENV) $$f; done
+
+## --------------------------------------------------------------------
+
+.PHONY: gdb
+
+gdb:
+	$(MMCK_CHECK_ENV) gdb --init-command=../gdbinit --args tests/test-$(file).exe
 
 ### end of file
