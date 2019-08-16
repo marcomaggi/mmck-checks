@@ -58,9 +58,10 @@
 		  (write	chicken::write)
 		  (newline	chicken::newline))
 	  (rename (only (chicken base)
+			declare
 			make-parameter
 			parameterize
-			declare)
+			void)
 		  (parameterize	parameterise))
 	  (rename (only (chicken pretty-print)
 			pretty-print)
@@ -282,17 +283,17 @@
 (declare (enforce-argument-types checks::proc))
 (: checks::proc (forall ((?thunk	(-> *))
 			 (?equal	(* * -> boolean)))
-			(procedure (* ?thunk ?equal *) . ())))
+			(procedure (* ?thunk ?equal *) . (undefined))))
 (define (checks::proc expression thunk equal expected-result)
   (case (checks::mode)
     ((0)
-     (values))
+     (void))
     ((1)
      (let ((actual-result (thunk)))
        (if (equal actual-result expected-result)
 	   (check:add-correct!)
 	 (check:add-failed! expression actual-result expected-result)))
-     (values))
+     (void))
     ((10)
      (let ((actual-result (thunk)))
        (if (equal actual-result expected-result)
@@ -302,7 +303,7 @@
 	   (check:report-actual-result actual-result)
 	   (check:report-failed expected-result)
 	   (check:add-failed! expression actual-result expected-result))))
-     (values))
+     (void))
     ((100)
      (check:report-expression expression)
      (let ((actual-result (thunk)))
@@ -314,9 +315,9 @@
 		(check:add-failed! expression
 				   actual-result
 				   expected-result))))
-     (values))
+     (void))
     (else
-     (values))))
+     (void))))
 
 (define-syntax srfi:check
   (syntax-rules (=>)
