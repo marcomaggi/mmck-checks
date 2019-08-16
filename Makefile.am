@@ -12,7 +12,6 @@ AM_MAKEINFOHTMLFLAGS	+= --css-ref=mmck-chicken-docs.css
 info_TEXINFOS		= doc/mmck-checks.texi
 doc_mmck_checks_TEXINFOS = \
 	doc/macros.texi			\
-	doc/lgpl-3.0.texi		\
 	doc/fdl-1.3.texi
 
 ## --------------------------------------------------------------------

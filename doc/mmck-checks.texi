@@ -76,7 +76,7 @@ testing''.  @chicken{} is a Scheme-to-C compiler supporting the language feature
 The library supports @posix{} platforms.  This package should work with @chicken{} version 5+; it
 has been tested with @chicken{} version @value{CHICKEN_VERSION}.
 
-This package is distributed under the terms of the @gnu{} Lesser General Public License (@lgpl{}).
+This package is distributed under the terms of a liberal license.
 
 The latest release can be downloaded from:
 
@@ -93,8 +93,8 @@ and as backup at:
 @center @value{BitbucketUrl}
 
 @noindent
-Copyright @copyright{} 2009-2016, 2019 Marco Maggi <marco.maggi-ipsu@@poste.it>@*
-Copyright @copyright{} 2005-2006 Sebastian Egner <Sebastian.Egner@@philips.com>@*
+Copyright @copyright{} 2009-2016, 2019 Marco Maggi @email{mrc.mgg@@gmail.com}@*
+Copyright @copyright{} 2005-2006 Sebastian Egner @email{sebastian.egner@@philips.com}@*
 Modified by Derick Eddington for @rnrs{6} Scheme.@*
 Modified by Marco Maggi for @chicken{}.@*
 
@@ -155,7 +155,7 @@ included in the section entitled ``@gnu{} Free Documentation License''.
 
 Appendices
 
-* Package License::             GNU Lesser General Public License.
+* Package License::             Package License.
 * Documentation License::       GNU Free Documentation License.
 * references::                  Bibliography and references.
 
@@ -509,11 +509,32 @@ Pretty prints @var{obj} to the current error port if
 @end defun
 
 @c page
-@c ------------------------------------------------------------
-@c Appendices.
-@c ------------------------------------------------------------
+@node Package License
+@appendix Package License
 
-@include lgpl-3.0.texi
+
+Copyright @copyright{} 2009-2016, 2019 Marco Maggi @email{mrc.mgg@@gmail.com}@*
+Copyright @copyright{} 2005-2006 Sebastian Egner @email{Sebastian.Egner@@philips.com}@*
+Modified by Derick Eddington for @rnrs{6} Scheme.@*
+Modified by Marco Maggi for @chicken{}.@*
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the ``Software''), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge, publish, distribute,
+sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED ``AS IS'', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+@c page
+
 @include fdl-1.3.texi
 
 @c page
