@@ -68,6 +68,22 @@ MMCK_CHECKS_IMPORT_SHARED_LIBS	=
 MMCK_CHECKS_RUNTIME_SHARED_LIBS	= \
 	lib/mmck.checks.$(MMCK_SOEXT)
 
+## --------------------------------------------------------------------
+
+# This is  a list of types  specification files, one for  each module.
+# They are  *not* installed.   They are  concatenated to  generate the
+# globl types file.
+#
+MMCK_CHECKS_TYPES_FILES_MODULES	=
+
+# This is  a list of the  types specification files.  To  be installed
+# along with shared libraries.
+#
+MMCK_CHECKS_TYPES_FILES_SHARED_LIBS	= \
+	lib/mmck.checks.types
+
+## --------------------------------------------------------------------
+
 # Temporary  files  we need  for  parallel  builds, ".temp",  ".lock",
 # ".stamp".
 #
@@ -81,9 +97,10 @@ MMCK_CHECKS_RUNTIME_OBJECTS	+= lib/mmck.checks.version.$(OBJEXT)
 MMCK_CHECKS_IMPORT_SOURCES	+= lib/mmck.checks.version.import.scm
 MMCK_CHECKS_IMPORT_DEPS		+= lib/mmck.checks.version.import.$(MMCK_SOEXT)
 MMCK_CHECKS_IMPORT_SHARED_LIBS	+= lib/mmck.checks.version.import.$(MMCK_SOEXT)
+MMCK_CHECKS_TYPES_FILES_MODULES	+= lib/mmck.checks.version.types.scm
 MMCK_CHECKS_TEMP_FILES		+= \
-	lib/mmck.checks.version.temp				\
-	lib/mmck.checks.version.lock				\
+	lib/mmck.checks.version.temp		\
+	lib/mmck.checks.version.lock		\
 	lib/mmck.checks.version.stamp
 
 # A compiler  invokation to build  an object file, also  generates the
@@ -97,9 +114,12 @@ MMCK_CHECKS_TEMP_FILES		+= \
 lib/mmck.checks.version.stamp: lib/mmck.checks.version.scm $(MMCK_OBJECTS_DEPS)
 	@rm -f lib/mmck.checks.version.temp
 	@touch lib/mmck.checks.version.temp
-	$(MMCK_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) lib/mmck.checks.version.$(OBJEXT) $(<) -prologue lib/config.scm
+	$(MMCK_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) lib/mmck.checks.version.$(OBJEXT) $(<) -prologue lib/config.scm \
+		-emit-types-file lib/mmck.checks.version.types.scm
 	@$(MV) mmck.checks.version.import.scm lib/mmck.checks.version.import.scm
 	@mv -f lib/mmck.checks.version.temp $@
+
+lib/mmck.checks.version.types.scm: lib/mmck.checks.version.stamp
 
 lib/mmck.checks.version.import.scm lib/mmck.checks.version.$(OBJEXT): lib/mmck.checks.version.stamp
 	@dry=; for f in x $$MAKEFLAGS; do \
@@ -133,17 +153,21 @@ MMCK_CHECKS_RUNTIME_OBJECTS	+= lib/mmck.checks.compat.$(OBJEXT)
 MMCK_CHECKS_IMPORT_SOURCES	+= lib/mmck.checks.compat.import.scm
 MMCK_CHECKS_IMPORT_DEPS		+= lib/mmck.checks.compat.import.$(MMCK_SOEXT)
 MMCK_CHECKS_IMPORT_SHARED_LIBS	+= lib/mmck.checks.compat.import.$(MMCK_SOEXT)
+MMCK_CHECKS_TYPES_FILES_MODULES	+= lib/mmck.checks.compat.types.scm
 MMCK_CHECKS_TEMP_FILES		+= \
-	lib/mmck.checks.compat.temp				\
-	lib/mmck.checks.compat.lock				\
+	lib/mmck.checks.compat.temp		\
+	lib/mmck.checks.compat.lock		\
 	lib/mmck.checks.compat.stamp
 
 lib/mmck.checks.compat.stamp: lib/mmck.checks.compat.scm $(MMCK_OBJECTS_DEPS)
 	@rm -f lib/mmck.checks.compat.temp
 	@touch lib/mmck.checks.compat.temp
-	$(MMCK_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) lib/mmck.checks.compat.$(OBJEXT) $(<)
+	$(MMCK_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) lib/mmck.checks.compat.$(OBJEXT) $(<) \
+		-emit-types-file lib/mmck.checks.compat.types.scm
 	@$(MV) mmck.checks.compat.import.scm lib/mmck.checks.compat.import.scm
 	@mv -f lib/mmck.checks.compat.temp $@
+
+lib/mmck.checks.compat.types.scm: lib/mmck.checks.compat.stamp
 
 lib/mmck.checks.compat.import.scm lib/mmck.checks.compat.$(OBJEXT): lib/mmck.checks.compat.stamp
 	@dry=; for f in x $$MAKEFLAGS; do \
@@ -177,6 +201,7 @@ MMCK_CHECKS_RUNTIME_OBJECTS	+= lib/mmck.checks.core.$(OBJEXT)
 MMCK_CHECKS_IMPORT_SOURCES	+= lib/mmck.checks.core.import.scm
 MMCK_CHECKS_IMPORT_DEPS		+= lib/mmck.checks.core.import.$(MMCK_SOEXT)
 MMCK_CHECKS_IMPORT_SHARED_LIBS	+= lib/mmck.checks.core.import.$(MMCK_SOEXT)
+MMCK_CHECKS_TYPES_FILES_MODULES	+= lib/mmck.checks.core.types.scm
 MMCK_CHECKS_TEMP_FILES		+= \
 	lib/mmck.checks.core.temp	\
 	lib/mmck.checks.core.lock	\
@@ -189,9 +214,12 @@ MMCK_CHECKS_CORE_DEPS = \
 lib/mmck.checks.core.stamp: lib/mmck.checks.core.scm $(MMCK_CHECKS_CORE_DEPS)
 	@rm -f lib/mmck.checks.core.temp
 	@touch lib/mmck.checks.core.temp
-	$(MMCK_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) lib/mmck.checks.core.$(OBJEXT) $(<)
+	$(MMCK_LIB_ENV) $(CSC_COMPILE_OBJECT_SHARED) lib/mmck.checks.core.$(OBJEXT) $(<) \
+		-emit-types-file lib/mmck.checks.core.types.scm
 	@$(MV) mmck.checks.core.import.scm lib/mmck.checks.core.import.scm
 	@mv -f lib/mmck.checks.core.temp $@
+
+lib/mmck.checks.core.types.scm: lib/mmck.checks.core.stamp
 
 lib/mmck.checks.core.import.scm lib/mmck.checks.core.$(OBJEXT): lib/mmck.checks.core.stamp
 	@dry=; for f in x $$MAKEFLAGS; do \
@@ -225,8 +253,8 @@ MMCK_CHECKS_RUNTIME_OBJECTS	+= lib/mmck.checks.$(OBJEXT)
 MMCK_CHECKS_IMPORT_SOURCES	+= lib/mmck.checks.import.scm
 MMCK_CHECKS_IMPORT_SHARED_LIBS	+= lib/mmck.checks.import.$(MMCK_SOEXT)
 MMCK_CHECKS_TEMP_FILES		+= \
-	lib/mmck.checks.temp				\
-	lib/mmck.checks.lock				\
+	lib/mmck.checks.temp		\
+	lib/mmck.checks.lock		\
 	lib/mmck.checks.stamp
 
 # This is the main compilation unit and it defines the main module; it
@@ -273,10 +301,15 @@ CLEANFILES	+= \
 	$(MMCK_CHECKS_RUNTIME_OBJECTS)		\
 	$(MMCK_CHECKS_IMPORT_SHARED_LIBS)	\
 	$(MMCK_CHECKS_IMPORT_SOURCES)		\
+	$(MMCK_CHECKS_TYPES_FILES_MODULES)	\
+	$(MMCK_CHECKS_TYPES_FILES_SHARED_LIBS)	\
 	$(MMCK_CHECKS_TEMP_FILES)
 
 lib/mmck.checks.$(MMCK_SOEXT): $(MMCK_CHECKS_RUNTIME_OBJECTS)
 	$(MMCK_LIB_ENV) $(CSC_LINK_LIBRARY) $(@) $(^)
+
+lib/mmck.checks.types: $(MMCK_CHECKS_TYPES_FILES_MODULES)
+	cat $(MMCK_CHECKS_TYPES_FILES_MODULES) >$@
 
 
 #### shared libraries installation
@@ -291,6 +324,11 @@ MMCK_ALL_IMPORT_SHARED_LIBS	= \
 MMCK_ALL_RUNTIME_SHARED_LIBS	= \
 	$(MMCK_CHECKS_RUNTIME_SHARED_LIBS)
 
+# All the types specification files that we want to install.
+#
+MMCK_ALL_TYPES_FILES	= \
+	$(MMCK_CHECKS_TYPES_FILES_SHARED_LIBS)
+
 # These variables are parsed by GNU Automake to build the main library
 # targets and install them under the directory $(MMUX_CHICKEN_LIBDIR).
 #
@@ -303,7 +341,10 @@ MMCK_ALL_RUNTIME_SHARED_LIBS	= \
 # permissions 0644.
 #
 sharedlibdir		= $(MMUX_CHICKEN_LIBDIR)
-sharedlib_SCRIPTS	= $(MMCK_ALL_RUNTIME_SHARED_LIBS) $(MMCK_ALL_IMPORT_SHARED_LIBS)
+sharedlib_SCRIPTS	= \
+	$(MMCK_ALL_RUNTIME_SHARED_LIBS)		\
+	$(MMCK_ALL_IMPORT_SHARED_LIBS)		\
+	$(MMCK_ALL_TYPES_FILES)
 
 
 #### interface to "make check"
